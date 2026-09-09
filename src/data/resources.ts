@@ -1,0 +1,755 @@
+import type { Resource } from "../types";
+
+/**
+ * To add a new resource: copy any object below, give it a unique `id`,
+ * fill in the fields. Resources don't need a thumbnail - they're
+ * link-first cards keyed by category and tags.
+ */
+export const resources: Resource[] = [
+  // --- Web Development ---
+  {
+    id: "mdn-web-docs",
+    type: "resource",
+    title: "MDN Web Docs",
+    kind: "Documentation",
+    description:
+      "The definitive reference for HTML, CSS, and JavaScript, maintained by Mozilla and the web platform community.",
+    category: "web-development",
+    url: "https://developer.mozilla.org/",
+    tags: ["documentation", "html", "css", "javascript"],
+    featured: true,
+  },
+  {
+    id: "w3schools",
+    type: "resource",
+    title: "W3Schools",
+    kind: "Tutorials",
+    description:
+      "Bite-sized tutorials and live code editors covering nearly every web technology, ideal for quick lookups.",
+    category: "web-development",
+    url: "https://www.w3schools.com/",
+    tags: ["tutorials", "web development", "reference"],
+  },
+  {
+    id: "github",
+    type: "resource",
+    title: "GitHub",
+    kind: "Version Control",
+    description:
+      "Host code, track issues, and collaborate with Git - the default home for open-source and team projects alike.",
+    category: "web-development",
+    url: "https://github.com/",
+    tags: ["git", "version control", "collaboration"],
+    featured: true,
+  },
+  {
+    id: "css-tricks",
+    type: "resource",
+    title: "CSS-Tricks",
+    kind: "CSS Tutorials",
+    description:
+      "In-depth articles and guides on CSS layout, animation, and modern styling techniques.",
+    category: "web-development",
+    url: "https://css-tricks.com/",
+    tags: ["css", "layout", "frontend"],
+  },
+  {
+    id: "codepen",
+    type: "resource",
+    title: "Codepen",
+    kind: "Front-End Editor",
+    description:
+      "A social code editor for building, sharing, and exploring front-end experiments in the browser.",
+    category: "web-development",
+    url: "https://codepen.io/",
+    tags: ["frontend", "playground", "html", "css"],
+  },
+  {
+    id: "a-list-apart",
+    type: "resource",
+    title: "A List Apart",
+    kind: "Web Standards",
+    description:
+      "Long-running publication on web standards, content strategy, and thoughtful front-end craftsmanship.",
+    category: "web-development",
+    url: "https://alistapart.com/",
+    tags: ["web standards", "articles", "design"],
+  },
+  {
+    id: "react-docs",
+    type: "resource",
+    title: "React Docs",
+    kind: "JS Library",
+    description:
+      "The official React documentation, including the modern learning guide built around hooks.",
+    category: "web-development",
+    url: "https://react.dev/",
+    tags: ["react", "javascript", "frontend"],
+    featured: true,
+  },
+  {
+    id: "vuejs-docs",
+    type: "resource",
+    title: "Vue.js Docs",
+    kind: "JS Framework",
+    description:
+      "Official guide and API reference for the Vue.js progressive framework.",
+    category: "web-development",
+    url: "https://vuejs.org/",
+    tags: ["vue", "javascript", "frontend framework"],
+  },
+  {
+    id: "angular-docs",
+    type: "resource",
+    title: "Angular Docs",
+    kind: "JS Framework",
+    description:
+      "Official documentation for building large-scale applications with Angular.",
+    category: "web-development",
+    url: "https://angular.io/",
+    tags: ["angular", "typescript", "frontend framework"],
+  },
+  {
+    id: "nextjs-docs",
+    type: "resource",
+    title: "Next.js Docs",
+    kind: "React Framework",
+    description:
+      "Guides and API reference for the React framework used for routing, rendering, and full-stack apps.",
+    category: "web-development",
+    url: "https://nextjs.org/docs",
+    tags: ["nextjs", "react", "full stack"],
+  },
+  {
+    id: "tailwind-css-docs",
+    type: "resource",
+    title: "Tailwind CSS Docs",
+    kind: "Utility CSS",
+    description:
+      "Official reference for every Tailwind utility class, configuration option, and plugin.",
+    category: "web-development",
+    url: "https://tailwindcss.com/docs",
+    tags: ["tailwind", "css", "utility first"],
+  },
+  {
+    id: "bootstrap-docs",
+    type: "resource",
+    title: "Bootstrap Docs",
+    kind: "CSS Framework",
+    description:
+      "Component library and grid system reference for rapid, responsive UI building.",
+    category: "web-development",
+    url: "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+    tags: ["bootstrap", "css framework", "components"],
+  },
+  {
+    id: "nodejs-docs",
+    type: "resource",
+    title: "Node.js Docs",
+    kind: "JS Runtime",
+    description:
+      "Official API documentation for the Node.js JavaScript runtime.",
+    category: "web-development",
+    url: "https://nodejs.org/en/docs",
+    tags: ["nodejs", "javascript", "backend"],
+  },
+  {
+    id: "expressjs",
+    type: "resource",
+    title: "Express.js",
+    kind: "Node Framework",
+    description:
+      "Minimal, unopinionated web framework for Node.js - the standard for building REST APIs.",
+    category: "web-development",
+    url: "https://expressjs.com/",
+    tags: ["express", "nodejs", "api", "backend"],
+  },
+  {
+    id: "django-docs",
+    type: "resource",
+    title: "Django Docs",
+    kind: "Python Framework",
+    description:
+      "Official documentation for Django, the batteries-included Python web framework.",
+    category: "web-development",
+    url: "https://docs.djangoproject.com/en/stable/",
+    tags: ["django", "python", "backend"],
+  },
+  {
+    id: "ruby-on-rails",
+    type: "resource",
+    title: "Ruby on Rails",
+    kind: "Web Framework",
+    description:
+      "The convention-over-configuration framework that popularized rapid full-stack web development.",
+    category: "web-development",
+    url: "https://rubyonrails.org/",
+    tags: ["ruby", "rails", "full stack"],
+  },
+  {
+    id: "swagger-openapi",
+    type: "resource",
+    title: "Swagger / OpenAPI",
+    kind: "API Documentation",
+    description:
+      "Tooling and specification for designing, documenting, and testing REST APIs.",
+    category: "web-development",
+    url: "https://swagger.io/docs/",
+    tags: ["api", "openapi", "documentation"],
+  },
+  {
+    id: "web-dev-learn",
+    type: "resource",
+    title: "web.dev/learn",
+    kind: "Chrome Team Guides",
+    description:
+      "Structured, modern courses on HTML, CSS, JavaScript, and performance from the Chrome team.",
+    category: "web-development",
+    url: "https://web.dev/learn",
+    tags: ["web performance", "html", "css", "javascript"],
+  },
+
+  // --- Programming Fundamentals ---
+  {
+    id: "geeksforgeeks",
+    type: "resource",
+    title: "GeeksforGeeks",
+    kind: "DS & Algo",
+    description:
+      "A huge library of articles and practice problems covering data structures, algorithms, and CS fundamentals.",
+    category: "programming-fundamentals",
+    url: "https://www.geeksforgeeks.org/",
+    tags: ["data structures", "algorithms", "interview prep"],
+    featured: true,
+  },
+  {
+    id: "leetcode",
+    type: "resource",
+    title: "LeetCode",
+    kind: "Coding Practice",
+    description:
+      "The most widely used platform for technical interview practice through algorithmic coding problems.",
+    category: "programming-fundamentals",
+    url: "https://leetcode.com/",
+    tags: ["coding practice", "interview prep", "algorithms"],
+    featured: true,
+  },
+  {
+    id: "hackerrank",
+    type: "resource",
+    title: "HackerRank",
+    kind: "Coding Challenges",
+    description:
+      "Skill-based coding challenges and certifications across languages and domains.",
+    category: "programming-fundamentals",
+    url: "https://www.hackerrank.com/",
+    tags: ["coding challenges", "certifications", "practice"],
+  },
+  {
+    id: "codewars",
+    type: "resource",
+    title: "Codewars",
+    kind: "Code Katas",
+    description:
+      'Small, ranked coding challenges ("katas") for sharpening problem-solving in a wide range of languages.',
+    category: "programming-fundamentals",
+    url: "https://www.codewars.com/",
+    tags: ["code katas", "practice", "problem solving"],
+  },
+  {
+    id: "testdome",
+    type: "resource",
+    title: "TestDome",
+    kind: "Skills Tests",
+    description:
+      "Standardized skills assessments used to benchmark and validate programming ability.",
+    category: "programming-fundamentals",
+    url: "https://www.testdome.com/",
+    tags: ["skills test", "assessment", "hiring"],
+  },
+  {
+    id: "exercism",
+    type: "resource",
+    title: "Exercism",
+    kind: "Mentored Practice",
+    description:
+      "Free coding exercises across 60+ languages with optional mentor feedback on your solutions.",
+    category: "programming-fundamentals",
+    url: "https://exercism.org/",
+    tags: ["practice", "mentorship", "multiple languages"],
+  },
+  {
+    id: "project-euler",
+    type: "resource",
+    title: "Project Euler",
+    kind: "Math Problems",
+    description:
+      "Challenging mathematical and computational problems designed to be solved with elegant code.",
+    category: "programming-fundamentals",
+    url: "https://projecteuler.net/",
+    tags: ["math", "problem solving", "algorithms"],
+  },
+  {
+    id: "developer-roadmaps",
+    type: "resource",
+    title: "Developer Roadmaps",
+    kind: "Learning Paths",
+    description:
+      "Community-built roadmaps that lay out what to learn, and in what order, for dozens of tech roles.",
+    category: "programming-fundamentals",
+    url: "https://roadmap.sh/",
+    tags: ["learning path", "roadmap", "career"],
+    featured: true,
+  },
+  {
+    id: "python-docs",
+    type: "resource",
+    title: "Python Docs",
+    kind: "Language Docs",
+    description: "The official Python language and standard library reference.",
+    category: "programming-fundamentals",
+    url: "https://docs.python.org/3/",
+    tags: ["python", "language reference"],
+  },
+  {
+    id: "java-docs",
+    type: "resource",
+    title: "Java Docs",
+    kind: "Language Docs",
+    description:
+      "Official Java SE documentation and API reference from Oracle.",
+    category: "programming-fundamentals",
+    url: "https://docs.oracle.com/en/java/",
+    tags: ["java", "language reference"],
+  },
+  {
+    id: "cpp-reference",
+    type: "resource",
+    title: "C++ Reference",
+    kind: "Language Docs",
+    description:
+      "A thorough, example-driven reference for the C++ language and standard library.",
+    category: "programming-fundamentals",
+    url: "https://cplusplus.com/reference/",
+    tags: ["c++", "language reference"],
+  },
+
+  // --- AI & Machine Learning ---
+  {
+    id: "scikit-learn-docs",
+    type: "resource",
+    title: "Scikit-Learn Docs",
+    kind: "Machine Learning",
+    description:
+      "User guide and API reference for the most widely used classical machine learning library in Python.",
+    category: "ai-and-ml",
+    url: "https://scikit-learn.org/stable/documentation.html",
+    tags: ["machine learning", "python", "scikit-learn"],
+  },
+
+  // --- Data Science ---
+  {
+    id: "kaggle",
+    type: "resource",
+    title: "Kaggle",
+    kind: "Data Science",
+    description:
+      "Datasets, notebooks, and competitions - the largest community hub for practicing data science end to end.",
+    category: "data-science",
+    url: "https://www.kaggle.com/",
+    tags: ["data science", "datasets", "competitions"],
+    featured: true,
+  },
+  {
+    id: "towards-data-science",
+    type: "resource",
+    title: "Towards Data Science",
+    kind: "DS Articles",
+    description:
+      "A large publication of practitioner-written articles on data science, ML, and analytics.",
+    category: "data-science",
+    url: "https://towardsdatascience.com/",
+    tags: ["data science", "articles", "machine learning"],
+  },
+  {
+    id: "numpy-docs",
+    type: "resource",
+    title: "NumPy Docs",
+    kind: "Python Math",
+    description:
+      "Official reference for NumPy, the array-computing foundation of Python's data science stack.",
+    category: "data-science",
+    url: "https://numpy.org/doc/stable/",
+    tags: ["numpy", "python", "numerical computing"],
+  },
+  {
+    id: "pandas-docs",
+    type: "resource",
+    title: "Pandas Docs",
+    kind: "Data Analysis",
+    description:
+      "Official documentation for Pandas, the standard library for tabular data analysis in Python.",
+    category: "data-science",
+    url: "https://pandas.pydata.org/docs/",
+    tags: ["pandas", "python", "data analysis"],
+  },
+
+  // --- Design ---
+  {
+    id: "dribbble",
+    type: "resource",
+    title: "Dribbble",
+    kind: "UI/UX Inspiration",
+    description:
+      "A showcase of polished UI and product design work for visual inspiration and trend-spotting.",
+    category: "design",
+    url: "https://dribbble.com/",
+    tags: ["ui design", "inspiration", "visual design"],
+  },
+  {
+    id: "behance",
+    type: "resource",
+    title: "Behance",
+    kind: "Design Portfolios",
+    description:
+      "Adobe's creative portfolio platform, spanning branding, illustration, product, and UI design.",
+    category: "design",
+    url: "https://www.behance.net/",
+    tags: ["portfolios", "branding", "design"],
+  },
+  {
+    id: "figma-community",
+    type: "resource",
+    title: "Figma Community",
+    kind: "Design Resources",
+    description:
+      "Free, duplicable design files, UI kits, and plugins shared by the Figma community.",
+    category: "design",
+    url: "https://www.figma.com/community",
+    tags: ["figma", "ui kits", "design resources"],
+    featured: true,
+  },
+  {
+    id: "material-design",
+    type: "resource",
+    title: "Material Design",
+    kind: "Design System",
+    description:
+      "Google's design system: guidelines, components, and tokens for building consistent interfaces.",
+    category: "design",
+    url: "https://material.io/design",
+    tags: ["design system", "google", "ui components"],
+  },
+  {
+    id: "ibm-carbon-design",
+    type: "resource",
+    title: "IBM Carbon Design",
+    kind: "Design System",
+    description:
+      "IBM's open-source design system for enterprise-grade digital products.",
+    category: "design",
+    url: "https://carbondesignsystem.com/",
+    tags: ["design system", "enterprise", "ui components"],
+  },
+  {
+    id: "nng-nielsen-norman",
+    type: "resource",
+    title: "NN/g (Nielsen Norman Group)",
+    kind: "UX Research",
+    description:
+      "Research-backed articles on usability, UX strategy, and evidence-based design decisions.",
+    category: "design",
+    url: "https://www.nngroup.com/",
+    tags: ["ux research", "usability", "design strategy"],
+  },
+
+  // --- DevOps & Cloud ---
+  {
+    id: "digitalocean-community",
+    type: "resource",
+    title: "DigitalOcean Community",
+    kind: "Dev Tutorials",
+    description:
+      "Clear, practical tutorials on servers, deployment, and infrastructure fundamentals.",
+    category: "devops-and-cloud",
+    url: "https://www.digitalocean.com/community",
+    tags: ["devops", "tutorials", "infrastructure"],
+  },
+  {
+    id: "cloudflare-developers",
+    type: "resource",
+    title: "Cloudflare Developers",
+    kind: "Cloud/Network",
+    description:
+      "Documentation for building on Cloudflare's edge network, Workers, and security products.",
+    category: "devops-and-cloud",
+    url: "https://developers.cloudflare.com/",
+    tags: ["cloudflare", "networking", "edge computing"],
+  },
+  {
+    id: "aws-documentation",
+    type: "resource",
+    title: "AWS Documentation",
+    kind: "Cloud Services",
+    description:
+      "Official reference for every Amazon Web Services product and API.",
+    category: "devops-and-cloud",
+    url: "https://docs.aws.amazon.com/",
+    tags: ["aws", "cloud", "infrastructure"],
+    featured: true,
+  },
+  {
+    id: "google-cloud-docs",
+    type: "resource",
+    title: "Google Cloud Docs",
+    kind: "Cloud Services",
+    description:
+      "Official documentation for Google Cloud Platform's services and APIs.",
+    category: "devops-and-cloud",
+    url: "https://cloud.google.com/docs",
+    tags: ["gcp", "cloud", "infrastructure"],
+  },
+  {
+    id: "postgresql-docs",
+    type: "resource",
+    title: "PostgreSQL Docs",
+    kind: "SQL Database",
+    description:
+      "The full official manual for PostgreSQL, one of the most trusted relational databases.",
+    category: "devops-and-cloud",
+    url: "https://www.postgresql.org/docs/",
+    tags: ["postgresql", "sql", "databases"],
+  },
+  {
+    id: "mongodb-docs",
+    type: "resource",
+    title: "MongoDB Docs",
+    kind: "NoSQL Database",
+    description:
+      "Official documentation for MongoDB, a leading document-oriented NoSQL database.",
+    category: "devops-and-cloud",
+    url: "https://www.mongodb.com/docs/",
+    tags: ["mongodb", "nosql", "databases"],
+  },
+  {
+    id: "docker-docs",
+    type: "resource",
+    title: "Docker Docs",
+    kind: "Containerization",
+    description:
+      "Official guide to building, running, and shipping applications in containers.",
+    category: "devops-and-cloud",
+    url: "https://docs.docker.com/",
+    tags: ["docker", "containers", "devops"],
+    featured: true,
+  },
+  {
+    id: "kubernetes-docs",
+    type: "resource",
+    title: "Kubernetes Docs",
+    kind: "Orchestration",
+    description:
+      "Official documentation for Kubernetes container orchestration at scale.",
+    category: "devops-and-cloud",
+    url: "https://kubernetes.io/docs/",
+    tags: ["kubernetes", "orchestration", "devops"],
+  },
+  {
+    id: "dotnet-documentation",
+    type: "resource",
+    title: ".NET Documentation",
+    kind: "Microsoft Ecosystem",
+    description:
+      "Official docs for building applications across the .NET ecosystem with C# and F#.",
+    category: "devops-and-cloud",
+    url: "https://docs.microsoft.com/en-us/dotnet/",
+    tags: [".net", "csharp", "microsoft"],
+  },
+  {
+    id: "android-developers",
+    type: "resource",
+    title: "Android Developers",
+    kind: "Mobile Development",
+    description:
+      "Official guides, API reference, and tooling documentation for building Android apps.",
+    category: "devops-and-cloud",
+    url: "https://developer.android.com/",
+    tags: ["android", "mobile development", "kotlin"],
+  },
+
+  // --- Career & Growth ---
+  {
+    id: "freecodecamp",
+    type: "resource",
+    title: "freeCodeCamp",
+    kind: "Curriculum",
+    description:
+      "A free, project-based curriculum covering web development, data science, and more, with certifications.",
+    category: "career-and-growth",
+    url: "https://www.freecodecamp.org/",
+    tags: ["free curriculum", "certifications", "self-paced"],
+    featured: true,
+  },
+  {
+    id: "coursera",
+    type: "resource",
+    title: "Coursera",
+    kind: "Online Courses",
+    description:
+      "University and industry-partnered courses, specializations, and degrees across every tech discipline.",
+    category: "career-and-growth",
+    url: "https://www.coursera.org/",
+    tags: ["online courses", "certificates", "university"],
+  },
+  {
+    id: "edx",
+    type: "resource",
+    title: "edX",
+    kind: "University Courses",
+    description:
+      "University-level courses from institutions like MIT and Harvard, including many free-to-audit options.",
+    category: "career-and-growth",
+    url: "https://www.edx.org/",
+    tags: ["university courses", "free audit", "certificates"],
+  },
+  {
+    id: "pluralsight",
+    type: "resource",
+    title: "Pluralsight",
+    kind: "Video Courses",
+    description:
+      "Structured, skills-assessed video courses aimed at professional software and IT teams.",
+    category: "career-and-growth",
+    url: "https://www.pluralsight.com/",
+    tags: ["video courses", "skill assessment", "professional"],
+  },
+  {
+    id: "tutorialspoint",
+    type: "resource",
+    title: "Tutorialspoint",
+    kind: "Broad Tutorials",
+    description:
+      "A broad catalog of quick-reference tutorials spanning programming, tools, and computer science topics.",
+    category: "career-and-growth",
+    url: "https://www.tutorialspoint.com/",
+    tags: ["tutorials", "reference", "broad coverage"],
+  },
+  {
+    id: "freecodecamp-news",
+    type: "resource",
+    title: "freeCodeCamp News",
+    kind: "Development Articles",
+    description:
+      "Long-form, practical articles and guides published by the freeCodeCamp community.",
+    category: "career-and-growth",
+    url: "https://www.freecodecamp.org/news/",
+    tags: ["articles", "tutorials", "guides"],
+  },
+
+  // --- Community & News ---
+  {
+    id: "stack-overflow",
+    type: "resource",
+    title: "Stack Overflow",
+    kind: "Q&A",
+    description:
+      "The largest programming Q&A community - the first stop when you hit an error message.",
+    category: "community-and-news",
+    url: "https://stackoverflow.com/",
+    tags: ["q&a", "debugging", "community"],
+    featured: true,
+  },
+  {
+    id: "dev-community",
+    type: "resource",
+    title: "DEV Community",
+    kind: "Tech Blogs",
+    description:
+      "A welcoming community publishing platform where developers share tutorials and career stories.",
+    category: "community-and-news",
+    url: "https://dev.to/",
+    tags: ["blogs", "community", "career stories"],
+  },
+  {
+    id: "r-learnprogramming",
+    type: "resource",
+    title: "r/learnprogramming",
+    kind: "Community",
+    description:
+      "A large, beginner-friendly Reddit community for programming questions and study advice.",
+    category: "community-and-news",
+    url: "https://www.reddit.com/r/learnprogramming/",
+    tags: ["community", "beginner friendly", "advice"],
+  },
+  {
+    id: "hacker-news",
+    type: "resource",
+    title: "Hacker News",
+    kind: "Tech News",
+    description:
+      "A fast-moving front page of tech, startup, and programming news curated by the community.",
+    category: "community-and-news",
+    url: "https://news.ycombinator.com/",
+    tags: ["tech news", "startups", "discussion"],
+  },
+  {
+    id: "infoworld",
+    type: "resource",
+    title: "InfoWorld",
+    kind: "IT News",
+    description:
+      "Analysis and news covering enterprise software, cloud, and application development.",
+    category: "community-and-news",
+    url: "https://www.infoworld.com/",
+    tags: ["it news", "enterprise", "cloud"],
+  },
+  {
+    id: "infoq",
+    type: "resource",
+    title: "InfoQ",
+    kind: "Software Trends",
+    description:
+      "In-depth articles and conference talk summaries on software architecture and engineering trends.",
+    category: "community-and-news",
+    url: "https://www.infoq.com/",
+    tags: ["software architecture", "engineering trends"],
+  },
+  {
+    id: "microsoft-dev-blogs",
+    type: "resource",
+    title: "Microsoft Dev Blogs",
+    kind: "Official Blogs",
+    description:
+      "Official engineering blogs from Microsoft product and platform teams.",
+    category: "community-and-news",
+    url: "https://devblogs.microsoft.com/",
+    tags: ["microsoft", "engineering blog", "official"],
+  },
+  {
+    id: "smashing-magazine-coding",
+    type: "resource",
+    title: "Smashing Magazine (Coding)",
+    kind: "Coding Articles",
+    description:
+      "Smashing Magazine's coding-focused articles on front-end techniques and best practices.",
+    category: "community-and-news",
+    url: "https://www.smashingmagazine.com/category/coding/",
+    tags: ["frontend", "articles", "best practices"],
+  },
+  {
+    id: "smashing-magazine",
+    type: "resource",
+    title: "Smashing Magazine",
+    kind: "Design & Dev Articles",
+    description:
+      "A well-known publication covering both design craft and front-end development in depth.",
+    category: "community-and-news",
+    url: "https://www.smashingmagazine.com/",
+    tags: ["design", "development", "articles"],
+  },
+];
+
+export function getFeaturedResources(limit?: number): Resource[] {
+  const featured = resources.filter((resource) => resource.featured);
+  return typeof limit === "number" ? featured.slice(0, limit) : featured;
+}

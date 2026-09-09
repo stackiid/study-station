@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@theme {
+  --font-display: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #faf7f0;
+  --color-paper-dim: #f2efe6;
+  --color-surface: #ffffff;
+
+  --color-teal-50: #eef7f5;
+  --color-teal-100: #d6ece7;
+  --color-teal-200: #aed9d0;
+  --color-teal-300: #7ec1b3;
+  --color-teal-400: #46a08e;
+  --color-teal-500: #227c6c;
+  --color-teal-600: #145f52;
+  --color-teal-700: #0f4c4c;
+  --color-teal-800: #0a3a3a;
+  --color-teal-900: #0a2e2c;
+
+  --color-coral-50: #fff1ea;
+  --color-coral-100: #ffe0cf;
+  --color-coral-300: #ffab7f;
+  --color-coral-400: #ff8f5e;
+  --color-coral-500: #ff7a45;
+  --color-coral-600: #e8632e;
+  --color-coral-700: #c04f23;
+
+  --color-ink-900: #142524;
+  --color-ink-700: #33453f;
+  --color-ink-500: #5c6d66;
+  --color-ink-300: #93a29c;
+
+  --shadow-soft:
+    0 1px 2px rgba(20, 37, 36, 0.04), 0 8px 24px -8px rgba(20, 37, 36, 0.12);
+  --shadow-lift:
+    0 4px 10px rgba(20, 37, 36, 0.06), 0 20px 40px -12px rgba(20, 37, 36, 0.18);
+
+  --radius-card: 1.25rem;
+  --radius-control: 0.75rem;
+
+  --container-max: 78rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-900);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-coral-100);
+    color: var(--color-teal-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-coral-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .surface-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* Decorative background texture used behind hero / CTA sections. */
+.brand-mesh {
+  background-image:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(34, 124, 108, 0.14),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 122, 69, 0.12),
+      transparent 40%
+    ),
+    radial-gradient(circle at 50% 100%, rgba(20, 95, 82, 0.08), transparent 55%);
+}
+
+.body-scroll-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
