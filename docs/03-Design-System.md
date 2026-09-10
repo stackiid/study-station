@@ -43,14 +43,27 @@ tokens (`bg-teal-700`, `text-coral-500`, etc.).
 
 ## Logo
 
-`src/components/ui/LogoMark.tsx` is an inline SVG component - not an
-imported image - so it can be recolored, resized, and reused (navbar,
-footer, loader, 404 page) without extra network requests. It's an original
-vector illustration (a stylized brain wearing a mortarboard) built from
-hand-authored bezier paths, redrawn from the brand's reference concept
-rather than tracing any existing artwork. `public/favicon.svg`,
-`favicon.ico`, and `apple-touch-icon.png` are all generated from this same
-source shape (see the `README.md` "Regenerating brand assets" section).
+`src/components/ui/LogoMark.tsx` renders the brand mark as a plain `<img>`
+pointing at `src/assets/brand/study-station-logo.png` - a supplied 3D
+rendered illustration (a brain wearing a mortarboard, in the brand's teal
+and coral), autocropped and compressed for the web. It's used borderless
+and transparent-background everywhere it appears (navbar, footer, 404
+page) - never boxed in a card, per the "no bounding box around the mark"
+rule established for the hero visual too. It is deliberately **not** used
+in the loader (kept logo-free and minimal) or in the hero (which uses
+`PersonIllustration.tsx` instead - see below). `favicon.ico`,
+`apple-touch-icon.png`, and `icon-32/192/512.png` are all generated from
+this same source image (see `docs/05-Deployment-and-Maintenance.md` for
+the exact commands).
+
+## Hero illustration
+
+`src/components/ui/PersonIllustration.tsx` is an inline SVG component (a
+person working on a laptop), based on a public-domain vector source and
+hand-recolored into the site's teal/coral tokens, with its original
+ground-plane shape removed so it renders with a fully transparent
+background - no card, no border, no bounding shape - directly on the
+hero's `brand-mesh` background.
 
 ## Component conventions
 
@@ -69,6 +82,16 @@ source shape (see the `README.md` "Regenerating brand assets" section).
   `components/ui/` are the only two "nothing to show" patterns in the app -
   every filtered-to-zero view and every form error reuses one of these
   instead of a bespoke message.
+- **Scrollbar**: styled globally in `index.css` (`::-webkit-scrollbar` +
+  Firefox's `scrollbar-color`) to a teal thumb on a soft paper track,
+  instead of the OS default, on every scrollable surface in the app.
+- **Selects**: the `.select-field` utility class (`index.css`) hides the
+  native control's default appearance and draws a custom teal chevron, so
+  closed dropdowns match the app's rounded, teal-bordered inputs. Note the
+  open dropdown _panel_ (the list of options) is still rendered by the
+  browser/OS - CSS can't restyle that part cross-browser without replacing
+  `<select>` with a fully custom JS listbox, which wasn't warranted for the
+  one sort control currently in the app.
 
 ## Motion principles
 
@@ -81,6 +104,16 @@ source shape (see the `README.md` "Regenerating brand assets" section).
   is checked before any GSAP tween runs, and a global CSS rule in
   `src/index.css` collapses all transition/animation durations to near-zero
   for users with the OS-level preference set, as a safety net.
+- The entry `Loader` (`components/ui/Loader.tsx`) is intentionally
+  logo-free - a single spinner and a small wordmark, nothing more - so it
+  reads as a brief loading beat rather than a splash screen. `Root.tsx`
+  coordinates with it via an `onFinished` callback: once the loader
+  finishes its own fade-out, the main app content cross-fades in
+  (`transition-opacity duration-500`) rather than appearing in an instant
+  cut. Both steps are skipped for `prefers-reduced-motion`.
+- The mobile nav drawer opens from the **left edge** of the screen
+  (`components/layout/MobileNav.tsx`), not the right - a deliberate
+  layout choice for this app, consistent everywhere the drawer appears.
 
 ## Accessibility baseline
 
@@ -88,9 +121,12 @@ source shape (see the `README.md` "Regenerating brand assets" section).
   (`:focus-visible` → coral outline, defined globally).
 - All images use empty `alt=""` where the image is purely decorative
   (thumbnails next to a text title) or a descriptive `alt` where the image
-  is the only content (the logo mark: `aria-label="Study Station"`).
+  is the only content (the logo mark: `alt="Study Station"`).
 - The mobile nav and search overlay are proper dialogs (`role="dialog"`,
-  `aria-modal="true"`, `Escape` to close, focus moved to the first
-  interactive element on open).
+  `aria-modal="true"`, `Escape` to close on keyboard-equipped devices,
+  focus moved to the first interactive element on open). The search
+  overlay's close control shows the text "Esc" only at `sm:` and above -
+  on touch/mobile widths it renders as an `×` icon instead, since phones
+  don't have an Escape key.
 - Color contrast: body text uses `--color-ink-700`/`900` on
   `--color-paper`/white, both well above WCAG AA for normal text.

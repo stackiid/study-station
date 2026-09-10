@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { Link } from "react-router-dom";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { LinkButton, AnchorButton } from "../components/ui/Button";
-import { LogoMark } from "../components/ui/LogoMark";
+import { PersonIllustration } from "../components/ui/PersonIllustration";
 import { CourseCard } from "../components/cards/CourseCard";
 import { ResourceCard } from "../components/cards/ResourceCard";
 import { TutorialCard } from "../components/cards/TutorialCard";
@@ -128,16 +128,14 @@ function Hero() {
 
         <div
           data-hero-mark
-          className="relative mx-auto flex w-full max-w-sm items-center justify-center"
+          className="relative mx-auto flex w-full max-w-md items-center justify-center"
         >
           <div
             className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl"
             aria-hidden="true"
           />
-          <div className="surface-card flex aspect-square w-full items-center justify-center p-12 sm:p-16">
-            <LogoMark className="h-full w-full drop-shadow-sm" />
-          </div>
-          <span className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-2xl bg-white px-3.5 py-2 shadow-lift sm:-right-6 sm:-top-4">
+          <PersonIllustration className="w-full max-w-sm drop-shadow-md sm:max-w-md" />
+          <span className="absolute right-2 top-4 flex items-center gap-1.5 rounded-2xl bg-white px-3.5 py-2 shadow-lift sm:right-0 sm:top-8">
             <i
               className="fa-solid fa-graduation-cap text-coral-500"
               aria-hidden="true"

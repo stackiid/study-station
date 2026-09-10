@@ -15,7 +15,7 @@ export function Logo({ variant = "dark", className }: LogoProps) {
       className={cx("flex items-center gap-2.5 shrink-0 group", className)}
       aria-label={`${site.name} home`}
     >
-      <LogoMark className="h-9 w-9 sm:h-10 sm:w-10 transition-transform duration-300 group-hover:-rotate-3" />
+      <LogoMark className="h-10 w-auto sm:h-11 object-contain transition-transform duration-300 group-hover:-rotate-3" />
       <span
         className={cx(
           "font-display font-bold text-lg sm:text-xl tracking-tight leading-none",

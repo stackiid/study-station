@@ -104,7 +104,7 @@ export default function Courses() {
             <select
               value={sort}
               onChange={(event) => setSort(event.target.value as SortOption)}
-              className="rounded-lg border border-ink-900/10 bg-white px-3 py-1.5 text-sm text-ink-900 focus:outline-none focus:ring-2 focus:ring-teal-500/30"
+              className="select-field rounded-lg border border-ink-900/10 bg-white py-1.5 pl-3 text-sm text-ink-900 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500"
             >
               <option value="featured">Featured</option>
               <option value="rating">Highest rated</option>

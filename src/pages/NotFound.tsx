@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section className="brand-mesh flex min-h-[70vh] items-center justify-center py-16">
       <div className="container-page flex flex-col items-center text-center">
-        <LogoMark className="h-16 w-16 opacity-80" />
+        <LogoMark className="h-20 w-auto object-contain opacity-90" />
         <p className="mt-6 font-display text-7xl font-extrabold text-teal-900/15 sm:text-8xl">
           404
         </p>

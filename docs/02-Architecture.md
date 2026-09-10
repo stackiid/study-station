@@ -6,17 +6,18 @@
 study-station/
 ├── docs/                     # This documentation set
 ├── public/
-│   ├── favicon.svg / .ico    # Generated from src/assets/brand/logo-mark.svg
-│   ├── apple-touch-icon.png
+│   ├── favicon.ico, apple-touch-icon.png, icon-32/192/512.png
+│   │      # Generated from src/assets/brand/study-station-logo.png
 │   └── images/
 │       ├── courses/          # Course thumbnails
 │       └── tutorials/        # Tutorial thumbnails
 ├── src/
-│   ├── assets/brand/         # Source logo SVG (design reference)
+│   ├── assets/brand/         # Source logo PNG (see docs/03, docs/05)
 │   ├── components/
 │   │   ├── ui/                # Generic, content-agnostic building blocks
 │   │   │   (Button, Badge, Tag, SectionHeading, Loader, EmptyState,
-│   │   │    ErrorState, Logo, LogoMark, PageHero, CategoryFilter,
+│   │   │    ErrorState, Logo, LogoMark, PersonIllustration, PageHero,
+│   │   │    CategoryFilter,
 │   │   │    buttonStyles.ts)
 │   │   ├── layout/            # Header, MobileNav, Footer, Layout (route shell)
 │   │   ├── search/            # GlobalSearch overlay + its sub-pieces

@@ -82,23 +82,56 @@ anywhere in the codebase.
 
 ## Regenerating brand assets
 
-The favicon set is generated from the single SVG source at
-`src/assets/brand/logo-mark.svg` using `rsvg-convert` and ImageMagick. If
-the logo ever changes, regenerate everything in `public/` with:
+The logo is a raster illustration, not a vector - `src/assets/brand/study-station-logo.png`
+is the single source of truth, imported directly by `LogoMark.tsx`. If it
+ever changes, regenerate every derived asset in `public/` from the new
+source with ImageMagick (autocrop transparent padding first, then export
+each size):
 
 ```bash
-cd public
-rsvg-convert -w 16 -h 16 favicon.svg -o /tmp/icon-16.png
-rsvg-convert -w 32 -h 32 favicon.svg -o /tmp/icon-32.png
-rsvg-convert -w 48 -h 48 favicon.svg -o /tmp/icon-48.png
-rsvg-convert -w 256 -h 256 favicon.svg -o /tmp/icon-256.png
-convert /tmp/icon-16.png /tmp/icon-32.png /tmp/icon-48.png /tmp/icon-256.png favicon.ico
-rsvg-convert -w 180 -h 180 -b "#F5F2EA" favicon.svg -o apple-touch-icon.png
+# 1. Autocrop transparent padding and add a little breathing room
+python3 - <<'PY'
+from PIL import Image
+img = Image.open("new-logo-source.png").convert("RGBA")
+cropped = img.crop(img.getbbox())
+pad = int(max(cropped.size) * 0.03)
+canvas = Image.new("RGBA", (cropped.width + pad*2, cropped.height + pad*2), (0,0,0,0))
+canvas.paste(cropped, (pad, pad), cropped)
+canvas.save("logo-cropped.png")
+PY
+
+# 2. In-app master (used by LogoMark.tsx via src/assets/brand/) - resize + compress
+convert logo-cropped.png -resize 512x512 study-station-logo.png
+pngquant --quality=75-95 --strip --force study-station-logo.png
+mv study-station-logo-fs8.png src/assets/brand/study-station-logo.png
+
+# 3. Square-pad for favicon generation (icons look off-center without this
+#    if the source isn't already square)
+python3 - <<'PY'
+from PIL import Image
+img = Image.open("logo-cropped.png").convert("RGBA")
+side = int(max(img.size) * 1.08)
+square = Image.new("RGBA", (side, side), (0,0,0,0))
+square.paste(img, ((side-img.width)//2, (side-img.height)//2), img)
+square.save("logo-square.png")
+PY
+
+# 4. Export every favicon size + the .ico + apple-touch-icon
+for size in 16 32 48 192 256 512; do
+  convert logo-square.png -resize ${size}x${size} icon-${size}.png
+done
+convert icon-16.png icon-32.png icon-48.png icon-256.png favicon.ico
+convert logo-square.png -resize 180x180 -background "#FAF7F0" -flatten apple-touch-icon.png
+pngquant --quality=75-95 --strip --force --ext .png icon-32.png icon-192.png icon-512.png apple-touch-icon.png
+
+# 5. Copy the results into public/
+cp favicon.ico apple-touch-icon.png icon-32.png icon-192.png icon-512.png public/
 ```
 
-(`favicon.svg` in `public/` should stay identical to
-`src/assets/brand/logo-mark.svg` - the former is what browsers request
-directly; the latter is what `LogoMark.tsx` inlines into the page.)
+`index.html` references `icon-32.png`, `icon-192.png`, `favicon.ico`
+(legacy fallback), and `apple-touch-icon.png` by exact filename - keep
+those names if you regenerate, or update the `<link>` tags in `index.html`
+to match new ones.
 
 ## Optimizing new course/tutorial images
 

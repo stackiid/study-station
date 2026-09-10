@@ -119,9 +119,19 @@
   .no-scrollbar {
     scrollbar-width: none;
   }
+
+  .select-field {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--color-surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23145F52' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 7.5 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2.25rem;
+  }
 }
 
-/* Decorative background texture used behind hero / CTA sections. */
 .brand-mesh {
   background-image:
     radial-gradient(
@@ -142,6 +152,30 @@
   height: 100vh;
 }
 
+html {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-teal-300) var(--color-paper-dim); /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-dim);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-teal-300);
+  border-radius: 999px;
+  border: 2.5px solid var(--color-paper-dim);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-teal-500);
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-paper-dim);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -159,14 +193,5 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
   }
 }

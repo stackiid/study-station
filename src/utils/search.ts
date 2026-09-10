@@ -40,14 +40,6 @@ function fieldsFor(item: SearchableItem) {
   return { title, tags, category, provider, description, kind };
 }
 
-/**
- * Lightweight relevance scoring. Cheaper than pulling in a search
- * dependency, and fast enough to run on every keystroke against the
- * current dataset size (a few hundred items).
- *
- * Priority order: exact title > title contains > tags > category >
- * provider/channel > description.
- */
 export function scoreSearchResult(
   item: SearchableItem,
   normalizedQuery: string,

@@ -170,9 +170,14 @@ export function GlobalSearch({ variant = "desktop" }: GlobalSearchProps) {
               <button
                 type="button"
                 onClick={close}
-                className="shrink-0 rounded-full px-3 py-2 text-sm font-medium text-ink-500 hover:bg-ink-900/5"
+                aria-label="Close search"
+                className="shrink-0 rounded-full p-2.5 text-sm font-medium text-ink-500 hover:bg-ink-900/5 sm:px-3 sm:py-2"
               >
-                Esc
+                <i
+                  className="fa-solid fa-xmark text-base sm:hidden"
+                  aria-hidden="true"
+                />
+                <span className="hidden sm:inline">Esc</span>
               </button>
             </div>
 

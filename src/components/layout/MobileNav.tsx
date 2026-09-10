@@ -44,8 +44,8 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         aria-modal="true"
         aria-label="Site navigation"
         className={cx(
-          "fixed inset-y-0 right-0 z-50 flex h-full w-[84%] max-w-xs flex-col bg-white shadow-lift transition-transform duration-300 ease-out md:hidden",
-          open ? "translate-x-0" : "translate-x-full",
+          "fixed inset-y-0 left-0 z-50 flex h-full w-[84%] max-w-xs flex-col bg-white shadow-lift transition-transform duration-300 ease-out md:hidden",
+          open ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center justify-between px-5 py-5 border-b border-ink-900/8">
