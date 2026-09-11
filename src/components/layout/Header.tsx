@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../ui/Logo";
 import { GlobalSearch } from "../search/GlobalSearch";
@@ -9,6 +9,7 @@ import { cx } from "../../utils/helpers";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
     function handleScroll() {
@@ -56,10 +57,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <GlobalSearch variant="desktop" />
-            <div className="md:hidden">
-              <GlobalSearch variant="mobile" />
-            </div>
+            <GlobalSearch />
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -72,7 +70,7 @@ export function Header() {
         </div>
       </header>
 
-      <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileNav open={menuOpen} onClose={closeMenu} />
     </>
   );
 }

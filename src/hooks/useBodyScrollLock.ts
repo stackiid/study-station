@@ -1,29 +1,42 @@
 import { useEffect } from "react";
 
-/**
- * Locks body scroll while `locked` is true. Used by the mobile nav and any
- * modal so the page behind it can't scroll, without affecting layout
- * (no width recalculation, no horizontal shift).
- */
+let lockCount = 0;
+let savedScrollY = 0;
+let savedPosition = "";
+let savedTop = "";
+let savedWidth = "";
+
+function acquireLock() {
+  if (lockCount === 0) {
+    savedScrollY = window.scrollY;
+    const { body } = document;
+    savedPosition = body.style.position;
+    savedTop = body.style.top;
+    savedWidth = body.style.width;
+
+    body.style.position = "fixed";
+    body.style.top = `-${savedScrollY}px`;
+    body.style.width = "100%";
+  }
+  lockCount += 1;
+}
+
+function releaseLock() {
+  lockCount = Math.max(0, lockCount - 1);
+  if (lockCount === 0) {
+    const { body } = document;
+    body.style.position = savedPosition;
+    body.style.top = savedTop;
+    body.style.width = savedWidth;
+    window.scrollTo(0, savedScrollY);
+  }
+}
+
 export function useBodyScrollLock(locked: boolean): void {
   useEffect(() => {
     if (!locked) return;
 
-    const scrollY = window.scrollY;
-    const { body } = document;
-    const previousPosition = body.style.position;
-    const previousTop = body.style.top;
-    const previousWidth = body.style.width;
-
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.width = "100%";
-
-    return () => {
-      body.style.position = previousPosition;
-      body.style.top = previousTop;
-      body.style.width = previousWidth;
-      window.scrollTo(0, scrollY);
-    };
+    acquireLock();
+    return () => releaseLock();
   }, [locked]);
 }

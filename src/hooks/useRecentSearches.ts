@@ -4,11 +4,6 @@ import { readLocalStorage, writeLocalStorage } from "../utils/helpers";
 const STORAGE_KEY = "studystation:recent-searches";
 const MAX_ENTRIES = 6;
 
-/**
- * Persists the last few search terms so returning visitors get quick
- * suggestions when they open search with an empty query. Degrades
- * silently if localStorage is unavailable (private browsing, quota, etc).
- */
 export function useRecentSearches() {
   const [recent, setRecent] = useState<string[]>(() =>
     readLocalStorage(STORAGE_KEY, []),

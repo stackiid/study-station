@@ -132,6 +132,7 @@
   }
 }
 
+/* Decorative background texture used behind hero / CTA sections. */
 .brand-mesh {
   background-image:
     radial-gradient(
@@ -152,6 +153,7 @@
   height: 100vh;
 }
 
+/* Custom scrollbar, matching the brand palette instead of the OS default. */
 html {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: var(--color-teal-300) var(--color-paper-dim); /* Firefox */

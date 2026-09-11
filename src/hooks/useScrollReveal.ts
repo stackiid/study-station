@@ -6,7 +6,6 @@ import { useReducedMotion } from "./useReducedMotion";
 gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollRevealOptions {
-  /** CSS selector (relative to the container) for the items to stagger in. */
   selector?: string;
   y?: number;
   stagger?: number;
@@ -14,11 +13,6 @@ interface ScrollRevealOptions {
   start?: string;
 }
 
-/**
- * Fades + lifts matched children into view as the container enters the
- * viewport. One shared implementation used by every section on the site,
- * instead of bespoke scroll logic per page.
- */
 export function useScrollReveal<T extends HTMLElement>(
   containerRef: RefObject<T | null>,
   {
