@@ -90,6 +90,22 @@ that content type, for instant narrowing without leaving the page.
 - The `Loader` component and mobile nav / search overlay use CSS
   transitions (not GSAP) since they're simple opacity/transform toggles
   that don't need a JS animation library.
+- The search overlay stays mounted for a short delay after closing
+  (`GlobalSearch.tsx`'s `mounted`/`shown` state) so its fade-out actually
+  plays instead of the panel vanishing the instant `Escape`/backdrop-click
+  fires - the same "animate out, then unmount" pattern most modal
+  libraries use. `useBodyScrollLock` stays engaged for that whole window
+  too, not just while the overlay is logically "open".
+- `useBodyScrollLock` (used by both the mobile nav and the search overlay)
+  locks scroll via `overflow: hidden` on `<html>`, not the more common
+  `position: fixed` + saved-`scrollY` + `window.scrollTo()` restore
+  trick. That older technique is worth actively avoiding here: this site
+  sets `scroll-behavior: smooth` globally for anchor links, and a
+  restoring `window.scrollTo()` call picks that up too, animating the
+  page from wherever the `position: fixed` reset visually snapped it back
+  to its real scroll position - a real, visible jump. `overflow: hidden`
+  never reads or writes scroll position at all, so there's nothing to
+  restore and nothing that can animate.
 
 ## State management
 

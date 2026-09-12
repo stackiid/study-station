@@ -13,13 +13,13 @@ All tokens live in `src/index.css` under `@theme`. Never hardcode a hex
 value in a component - use the Tailwind classes generated from these
 tokens (`bg-teal-700`, `text-coral-500`, etc.).
 
-| Token                    | Hex                   | Use                                                       |
-| ------------------------ | --------------------- | --------------------------------------------------------- |
-| `--color-paper`          | `#faf7f0`             | Page background                                           |
-| `--color-surface`        | `#ffffff`             | Cards, panels                                             |
-| `--color-teal-500..900`  | `#227c6c` → `#0a2e2c` | Primary brand color: headings, primary surfaces, the logo |
-| `--color-coral-400..700` | `#ff8f5e` → `#c04f23` | Accent: CTAs, highlights, active states                   |
-| `--color-ink-300..900`   | `#93a29c` → `#142524` | Text hierarchy (body copy down to near-black headings)    |
+| Token | Hex | Use |
+| --- | --- | --- |
+| `--color-paper` | `#faf7f0` | Page background |
+| `--color-surface` | `#ffffff` | Cards, panels |
+| `--color-teal-500..900` | `#227c6c` → `#0a2e2c` | Primary brand color: headings, primary surfaces, the logo |
+| `--color-coral-400..700` | `#ff8f5e` → `#c04f23` | Accent: CTAs, highlights, active states |
+| `--color-ink-300..900` | `#93a29c` → `#142524` | Text hierarchy (body copy down to near-black headings) |
 
 ## Typography
 
@@ -88,7 +88,7 @@ hero's `brand-mesh` background.
 - **Selects**: the `.select-field` utility class (`index.css`) hides the
   native control's default appearance and draws a custom teal chevron, so
   closed dropdowns match the app's rounded, teal-bordered inputs. Note the
-  open dropdown _panel_ (the list of options) is still rendered by the
+  open dropdown *panel* (the list of options) is still rendered by the
   browser/OS - CSS can't restyle that part cross-browser without replacing
   `<select>` with a fully custom JS listbox, which wasn't warranted for the
   one sort control currently in the app.

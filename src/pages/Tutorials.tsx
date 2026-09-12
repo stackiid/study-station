@@ -15,10 +15,7 @@ export default function Tutorials() {
   const [query, setQuery] = useState("");
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const availableIds = useMemo(
-    () => new Set(tutorials.map((t) => t.category)),
-    [],
-  );
+  const availableIds = useMemo(() => new Set(tutorials.map((t) => t.category)), []);
 
   const filtered = useMemo(() => {
     const normalizedQuery = normalizeSearchText(query);
@@ -27,9 +24,7 @@ export default function Tutorials() {
       const matchesQuery =
         normalizedQuery.length === 0 ||
         normalizeSearchText(tutorial.title).includes(normalizedQuery) ||
-        normalizeSearchText(tutorial.tags.join(" ")).includes(
-          normalizedQuery,
-        ) ||
+        normalizeSearchText(tutorial.tags.join(" ")).includes(normalizedQuery) ||
         normalizeSearchText(tutorial.channel).includes(normalizedQuery);
       return matchesCategory && matchesQuery;
     });

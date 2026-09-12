@@ -13,9 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-500">
-              {site.description}
-            </p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-500">{site.description}</p>
             <a
               href={site.communityChannelUrl}
               target="_blank"
@@ -28,16 +26,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">
-              Navigate
-            </h3>
+            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">Navigate</h3>
             <ul className="mt-4 flex flex-col gap-2.5">
               {primaryNav.map((link) => (
                 <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-ink-500 hover:text-teal-700 transition-colors"
-                  >
+                  <Link to={link.path} className="text-sm text-ink-500 hover:text-teal-700 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -46,9 +39,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">
-              Categories
-            </h3>
+            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">Categories</h3>
             <ul className="mt-4 flex flex-col gap-2.5">
               {categories.slice(0, 5).map((category) => (
                 <li key={category.id}>
@@ -64,16 +55,11 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">
-              Legal
-            </h3>
+            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-teal-900">Legal</h3>
             <ul className="mt-4 flex flex-col gap-2.5">
               {footerLegalNav.map((link) => (
                 <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-ink-500 hover:text-teal-700 transition-colors"
-                  >
+                  <Link to={link.path} className="text-sm text-ink-500 hover:text-teal-700 transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -94,9 +80,7 @@ export function Footer() {
           <p className="text-xs text-ink-300">
             &copy; {year} {site.name}. All rights reserved.
           </p>
-          <p className="max-w-lg text-center text-xs text-ink-300 sm:text-right">
-            {site.disclaimer}
-          </p>
+          <p className="max-w-lg text-center text-xs text-ink-300 sm:text-right">{site.disclaimer}</p>
         </div>
       </div>
     </footer>

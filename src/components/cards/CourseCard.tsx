@@ -15,12 +15,7 @@ function RatingStars({ rating }: { rating: number }) {
   return (
     <span className="flex items-center gap-1 text-coral-500" aria-hidden="true">
       {Array.from({ length: 5 }).map((_, index) => (
-        <i
-          key={index}
-          className={
-            index < rounded ? "fa-solid fa-star" : "fa-regular fa-star"
-          }
-        />
+        <i key={index} className={index < rounded ? "fa-solid fa-star" : "fa-regular fa-star"} />
       ))}
     </span>
   );
@@ -58,24 +53,16 @@ export function CourseCard({ course }: { course: Course }) {
           {!course.comingSoon && (
             <span className="flex items-center gap-1.5">
               <RatingStars rating={course.rating} />
-              <span className="text-ink-700">
-                {formatRating(course.rating)}
-              </span>
+              <span className="text-ink-700">{formatRating(course.rating)}</span>
             </span>
           )}
         </div>
 
-        <h3 className="mt-2.5 font-display text-lg font-bold leading-snug text-teal-900">
-          {course.title}
-        </h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
-          {course.description}
-        </p>
+        <h3 className="mt-2.5 font-display text-lg font-bold leading-snug text-teal-900">{course.title}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">{course.description}</p>
 
         <div className="mt-4 flex items-center justify-between gap-3 border-t border-ink-900/6 pt-4">
-          <span className="truncate text-xs font-medium text-ink-500">
-            By {course.provider}
-          </span>
+          <span className="truncate text-xs font-medium text-ink-500">By {course.provider}</span>
           <a
             href={course.url}
             target="_blank"
@@ -83,10 +70,7 @@ export function CourseCard({ course }: { course: Course }) {
             className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-teal-700/8 px-3.5 py-1.5 text-xs font-bold text-teal-800 transition-colors hover:bg-teal-700 hover:text-white"
           >
             {course.comingSoon ? "Notify me" : "View course"}
-            <i
-              className="fa-solid fa-arrow-right text-[0.65rem]"
-              aria-hidden="true"
-            />
+            <i className="fa-solid fa-arrow-right text-[0.65rem]" aria-hidden="true" />
           </a>
         </div>
       </div>

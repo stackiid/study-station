@@ -9,6 +9,9 @@ export function Root() {
   const [contentVisible, setContentVisible] = useState(false);
   const reducedMotion = useReducedMotion();
 
+  // Passed to Loader so the two stay in sync: content only starts fading
+  // in once the loader has actually finished its own fade-out, instead of
+  // both racing against separately-guessed timers.
   const handleLoaderFinished = useCallback(() => {
     setShowLoader(false);
     setContentVisible(true);

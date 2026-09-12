@@ -14,6 +14,12 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   useBodyScrollLock(open);
 
+  // Read the latest onClose from a ref so the effect below only depends on
+  // `open`, not on `onClose`'s identity. Header already passes a stable,
+  // useCallback-memoized onClose, but keeping this indirection here too
+  // means MobileNav can't be broken by some future caller passing an
+  // inline arrow function instead - the listener will still only ever
+  // attach/detach on actual open/close transitions.
   const onCloseRef = useRef(onClose);
   useLayoutEffect(() => {
     onCloseRef.current = onClose;
@@ -38,9 +44,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         onClick={onClose}
         className={cx(
           "fixed inset-0 z-[45] bg-teal-900/40 backdrop-blur-[2px] transition-opacity duration-300 md:hidden",
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none",
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         )}
       />
 
@@ -77,9 +81,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   className={({ isActive }) =>
                     cx(
                       "block rounded-xl px-3.5 py-3 text-base font-semibold transition-colors",
-                      isActive
-                        ? "bg-teal-50 text-teal-800"
-                        : "text-ink-700 hover:bg-ink-900/[0.04]",
+                      isActive ? "bg-teal-50 text-teal-800" : "text-ink-700 hover:bg-ink-900/[0.04]",
                     )
                   }
                 >

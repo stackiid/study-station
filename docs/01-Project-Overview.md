@@ -22,35 +22,35 @@ content, reorganized and made searchable.
 
 ## Tech stack, at a glance
 
-| Concern           | Choice                                        |
-| ----------------- | --------------------------------------------- |
-| Framework         | React 19 + TypeScript                         |
-| Build tool        | Vite                                          |
-| Styling           | Tailwind CSS v4 (`@tailwindcss/vite`)         |
-| Routing           | React Router v7 (`BrowserRouter`)             |
-| Animation         | GSAP + `ScrollTrigger`                        |
-| Icons             | Font Awesome Free (bundled via npm)           |
-| Fonts             | Google Fonts (Sora + Manrope, via `<link>`)   |
-| Linting           | oxlint                                        |
-| Contact form      | Formspree (`https://formspree.io/f/maeypyvr`) |
-| Local persistence | `localStorage` (recent search terms only)     |
+| Concern            | Choice                                   |
+| ------------------- | ----------------------------------------- |
+| Framework           | React 19 + TypeScript                     |
+| Build tool           | Vite                                      |
+| Styling             | Tailwind CSS v4 (`@tailwindcss/vite`)     |
+| Routing             | React Router v7 (`BrowserRouter`)         |
+| Animation           | GSAP + `ScrollTrigger`                    |
+| Icons               | Font Awesome Free (bundled via npm)       |
+| Fonts               | Google Fonts (Sora + Manrope, via `<link>`) |
+| Linting             | oxlint                                    |
+| Contact form        | Formspree (`https://formspree.io/f/maeypyvr`) |
+| Local persistence   | `localStorage` (recent search terms only) |
 
 No backend, no database, no build-time CMS. Content lives in typed
 TypeScript data files under `src/data/`.
 
 ## Page map
 
-| Route        | Purpose                                                                                        |
-| ------------ | ---------------------------------------------------------------------------------------------- |
-| `/`          | Home - hero, featured courses, categories, featured resources, tutorial preview, community CTA |
-| `/courses`   | Full course catalog with search, category filter, level filter, sort                           |
-| `/resources` | Full resource catalog with search and category filter                                          |
-| `/tutorials` | Full tutorial catalog with search and category filter                                          |
-| `/contact`   | Contact form (Formspree) + direct contact channels                                             |
-| `/privacy`   | Privacy Policy                                                                                 |
-| `/terms`     | Terms & Conditions                                                                             |
-| `/search`    | Full-page search results (linked from the search overlay's "See all results")                  |
-| `*`          | 404 Not Found                                                                                  |
+| Route        | Purpose                                               |
+| ------------- | ------------------------------------------------------ |
+| `/`           | Home - hero, featured courses, categories, featured resources, tutorial preview, community CTA |
+| `/courses`    | Full course catalog with search, category filter, level filter, sort |
+| `/resources`  | Full resource catalog with search and category filter  |
+| `/tutorials`  | Full tutorial catalog with search and category filter  |
+| `/contact`    | Contact form (Formspree) + direct contact channels     |
+| `/privacy`    | Privacy Policy                                         |
+| `/terms`      | Terms & Conditions                                     |
+| `/search`     | Full-page search results (linked from the search overlay's "See all results") |
+| `*`           | 404 Not Found                                          |
 
 ## What this rebuild deliberately does not include
 

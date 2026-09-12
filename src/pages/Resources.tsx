@@ -15,10 +15,7 @@ export default function Resources() {
   const [query, setQuery] = useState("");
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const availableIds = useMemo(
-    () => new Set(resources.map((r) => r.category)),
-    [],
-  );
+  const availableIds = useMemo(() => new Set(resources.map((r) => r.category)), []);
 
   const filtered = useMemo(() => {
     const normalizedQuery = normalizeSearchText(query);
@@ -27,9 +24,7 @@ export default function Resources() {
       const matchesQuery =
         normalizedQuery.length === 0 ||
         normalizeSearchText(resource.title).includes(normalizedQuery) ||
-        normalizeSearchText(resource.tags.join(" ")).includes(
-          normalizedQuery,
-        ) ||
+        normalizeSearchText(resource.tags.join(" ")).includes(normalizedQuery) ||
         normalizeSearchText(resource.kind).includes(normalizedQuery);
       return matchesCategory && matchesQuery;
     });

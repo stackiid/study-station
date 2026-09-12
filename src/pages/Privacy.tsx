@@ -48,33 +48,22 @@ const sections = [
   },
   {
     title: "Contact us",
-    body: [
-      `Questions about this policy? Reach out any time at ${site.contactEmail} or through the contact page.`,
-    ],
+    body: [`Questions about this policy? Reach out any time at ${site.contactEmail} or through the contact page.`],
   },
 ];
 
 export default function Privacy() {
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
-        title="Privacy Policy"
-        description="Last updated: January 2026"
-      />
+      <PageHero eyebrow="Legal" title="Privacy Policy" description="Last updated: January 2026" />
       <section className="container-page py-12 sm:py-14">
         <div className="mx-auto max-w-3xl space-y-10">
           {sections.map((section) => (
             <div key={section.title}>
-              <h2 className="font-display text-xl font-bold text-teal-900">
-                {section.title}
-              </h2>
+              <h2 className="font-display text-xl font-bold text-teal-900">{section.title}</h2>
               <div className="mt-3 space-y-3">
                 {section.body.map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="text-sm leading-relaxed text-ink-500 sm:text-base"
-                  >
+                  <p key={index} className="text-sm leading-relaxed text-ink-500 sm:text-base">
                     {paragraph}
                   </p>
                 ))}

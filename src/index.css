@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
+/*
+  Study Station design tokens.
+  Palette: soft warm neutrals + deep teal + warm coral accent.
+  Purple/violet/indigo/magenta are intentionally never used anywhere
+  in this file or in component styles.
+*/
 @theme {
   --font-display: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
@@ -33,10 +39,8 @@
   --color-ink-500: #5c6d66;
   --color-ink-300: #93a29c;
 
-  --shadow-soft:
-    0 1px 2px rgba(20, 37, 36, 0.04), 0 8px 24px -8px rgba(20, 37, 36, 0.12);
-  --shadow-lift:
-    0 4px 10px rgba(20, 37, 36, 0.06), 0 20px 40px -12px rgba(20, 37, 36, 0.18);
+  --shadow-soft: 0 1px 2px rgba(20, 37, 36, 0.04), 0 8px 24px -8px rgba(20, 37, 36, 0.12);
+  --shadow-lift: 0 4px 10px rgba(20, 37, 36, 0.06), 0 20px 40px -12px rgba(20, 37, 36, 0.18);
 
   --radius-card: 1.25rem;
   --radius-control: 0.75rem;
@@ -71,12 +75,7 @@
     overflow-x: hidden;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -120,6 +119,13 @@
     scrollbar-width: none;
   }
 
+  /* Custom <select> - hides the native control entirely and draws our own
+     chevron, so every dropdown matches the app's rounded, teal-bordered
+     inputs instead of falling back to OS-native styling. The dropdown
+     *panel* itself (the open list of options) is still rendered by the
+     browser/OS and can't be restyled with CSS - true cross-browser control
+     over that panel requires a JS-built listbox, which is more machinery
+     than this single sort control warrants. */
   .select-field {
     appearance: none;
     -webkit-appearance: none;
@@ -135,16 +141,8 @@
 /* Decorative background texture used behind hero / CTA sections. */
 .brand-mesh {
   background-image:
-    radial-gradient(
-      circle at 12% 18%,
-      rgba(34, 124, 108, 0.14),
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 88% 12%,
-      rgba(255, 122, 69, 0.12),
-      transparent 40%
-    ),
+    radial-gradient(circle at 12% 18%, rgba(34, 124, 108, 0.14), transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(255, 122, 69, 0.12), transparent 40%),
     radial-gradient(circle at 50% 100%, rgba(20, 95, 82, 0.08), transparent 55%);
 }
 
@@ -178,22 +176,17 @@ html {
   background: var(--color-paper-dim);
 }
 
+/* Any inner scroll container (search overlay results, mobile nav) that
+   opts out of the scrollbar entirely uses .no-scrollbar, defined once
+   above in the components layer. */
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
+

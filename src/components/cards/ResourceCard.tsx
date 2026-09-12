@@ -21,15 +21,9 @@ export function ResourceCard({ resource }: { resource: Resource }) {
         />
       </div>
 
-      <h3 className="mt-3.5 font-display text-base font-bold leading-snug text-teal-900">
-        {resource.title}
-      </h3>
-      <span className="mt-1 text-xs font-semibold uppercase tracking-wide text-coral-600">
-        {resource.kind}
-      </span>
-      <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-500">
-        {resource.description}
-      </p>
+      <h3 className="mt-3.5 font-display text-base font-bold leading-snug text-teal-900">{resource.title}</h3>
+      <span className="mt-1 text-xs font-semibold uppercase tracking-wide text-coral-600">{resource.kind}</span>
+      <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ink-500">{resource.description}</p>
 
       <div className="mt-4 flex flex-wrap gap-1.5">
         {resource.tags.slice(0, 3).map((tag) => (

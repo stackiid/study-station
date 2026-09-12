@@ -27,10 +27,7 @@ export default function Courses() {
   const [sort, setSort] = useState<SortOption>("featured");
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const availableIds = useMemo(
-    () => new Set(courses.map((c) => c.category)),
-    [],
-  );
+  const availableIds = useMemo(() => new Set(courses.map((c) => c.category)), []);
 
   const filtered = useMemo(() => {
     const normalizedQuery = normalizeSearchText(query);
@@ -89,9 +86,7 @@ export default function Courses() {
                 type="button"
                 onClick={() => setLevel(option.id)}
                 className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                  level === option.id
-                    ? "bg-coral-500 text-white"
-                    : "bg-ink-900/[0.04] text-ink-700 hover:bg-ink-900/[0.08]"
+                  level === option.id ? "bg-coral-500 text-white" : "bg-ink-900/[0.04] text-ink-700 hover:bg-ink-900/[0.08]"
                 }`}
               >
                 {option.label}
