@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../ui/Logo";
 import { GlobalSearch } from "../search/GlobalSearch";
@@ -8,27 +8,18 @@ import { cx } from "../../utils/helpers";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 8);
-    }
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
       <header
         className={cx(
-          "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-          scrolled ? "bg-paper/85 backdrop-blur-md shadow-soft" : "bg-transparent",
+          "fixed inset-x-5 top-5 z-40 mx-auto max-w-[96rem]",
+          "rounded-2xl border border-white/60 bg-white/80 shadow-lift backdrop-blur-md",
+          "transition-shadow duration-300 hover:shadow-xl",
         )}
       >
-        <div className="container-page flex h-16 sm:h-[4.5rem] items-center justify-between gap-4">
+        <div className="flex h-16 items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
           <Logo />
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Primary">

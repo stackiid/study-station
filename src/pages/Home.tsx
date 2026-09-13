@@ -19,13 +19,27 @@ import { getCategoryCounts } from "../utils/categoryCounts";
 import { site } from "../data/site";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useCountUp } from "../hooks/useCountUp";
 
 const stats = [
-  { label: "Free courses", value: `${courses.length}+` },
-  { label: "Curated resources", value: `${resources.length}+` },
-  { label: "Video tutorials", value: `${tutorials.length}+` },
-  { label: "Cost to join", value: "$0" },
+  { label: "Free courses", target: courses.length, suffix: "+" },
+  { label: "Curated resources", target: resources.length, suffix: "+" },
+  { label: "Video tutorials", target: tutorials.length, suffix: "+" },
+  { label: "Cost to join", target: 0, prefix: "$" },
 ];
+
+function StatCounter({ target, prefix = "", suffix = "" }: { target: number; prefix?: string; suffix?: string }) {
+  // Starts as soon as the hero mounts - the stats row lives above the
+  // fold by design, so there's no scroll-triggering to wire up here.
+  const value = useCountUp(target, { duration: 1100, delay: 500 });
+  return (
+    <>
+      {prefix}
+      {value}
+      {suffix}
+    </>
+  );
+}
 
 function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -47,8 +61,8 @@ function Hero() {
   }, [reducedMotion]);
 
   return (
-    <section ref={heroRef} className="relative overflow-hidden brand-mesh pb-16 pt-14 sm:pb-20 sm:pt-20 lg:pt-24">
-      <div className="container-page grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+    <section ref={heroRef} className="relative overflow-hidden brand-mesh pb-14 pt-6 sm:pb-16 sm:pt-8 lg:pt-10">
+      <div className="container-page grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <span
             data-hero-eyebrow
@@ -60,17 +74,17 @@ function Hero() {
 
           <h1
             data-hero-title
-            className="mt-5 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-teal-900 text-balance sm:text-5xl lg:text-6xl"
+            className="mt-4 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-teal-900 text-balance sm:text-5xl"
           >
             Study smart with courses, tutorials & resources in one place
           </h1>
 
-          <p data-hero-copy className="mt-5 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
+          <p data-hero-copy className="mt-4 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
             {site.description} No paywalls, no sign-up walls - just organized, searchable learning material curated
             for developers and designers.
           </p>
 
-          <div data-hero-cta className="mt-8 flex flex-wrap items-center gap-3">
+          <div data-hero-cta className="mt-6 flex flex-wrap items-center gap-3">
             <LinkButton to="/courses" size="lg" icon={<i className="fa-solid fa-arrow-right" />}>
               Explore courses
             </LinkButton>
@@ -79,11 +93,13 @@ function Hero() {
             </LinkButton>
           </div>
 
-          <dl className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4">
+          <dl className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4">
             {stats.map((stat) => (
               <div key={stat.label} data-hero-stat>
                 <dt className="text-xs font-semibold uppercase tracking-wide text-ink-300">{stat.label}</dt>
-                <dd className="mt-1 font-display text-2xl font-extrabold text-teal-900 sm:text-3xl">{stat.value}</dd>
+                <dd className="mt-1 font-display text-2xl font-extrabold text-teal-900 sm:text-3xl">
+                  <StatCounter target={stat.target} prefix={stat.prefix} suffix={stat.suffix} />
+                </dd>
               </div>
             ))}
           </dl>
@@ -91,11 +107,7 @@ function Hero() {
 
         <div data-hero-mark className="relative mx-auto flex w-full max-w-md items-center justify-center">
           <div className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl" aria-hidden="true" />
-          <PersonIllustration className="w-full max-w-sm drop-shadow-md sm:max-w-md" />
-          <span className="absolute right-2 top-4 flex items-center gap-1.5 rounded-2xl bg-white px-3.5 py-2 shadow-lift sm:right-0 sm:top-8">
-            <i className="fa-solid fa-graduation-cap text-coral-500" aria-hidden="true" />
-            <span className="text-xs font-bold text-teal-900">Never stop learning</span>
-          </span>
+          <PersonIllustration className="w-full max-w-sm -scale-x-100 drop-shadow-md sm:max-w-md" />
         </div>
       </div>
     </section>

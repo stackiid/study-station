@@ -63,7 +63,23 @@ person working on a laptop), based on a public-domain vector source and
 hand-recolored into the site's teal/coral tokens, with its original
 ground-plane shape removed so it renders with a fully transparent
 background - no card, no border, no bounding shape - directly on the
-hero's `brand-mesh` background.
+hero's `brand-mesh` background. It's rendered mirrored (`-scale-x-100`) in
+the Home hero specifically so the person faces toward the headline rather
+than away from it - a deliberate compositional choice, not a default
+orientation of the component itself (a future placement elsewhere on the
+site should judge the correct direction independently).
+
+## Floating header
+
+The header (`components/layout/Header.tsx`) is a `fixed` element inset
+`20px` from the top/left/right of the viewport on every page
+(`inset-x-5 top-5`), with its own rounded corners and shadow - a detached,
+floating bar rather than a bar spanning the full viewport width. Because of
+this, page content can't simply start at "the header's height" the way a
+flush-to-the-edge header would - `Layout.tsx`'s `<main>` accounts for the
+header's height *plus* its `20px` top margin (`pt-[5.25rem] sm:pt-[5.75rem]`).
+If the header's own height or margin ever changes, that padding needs to
+change with it.
 
 ## Component conventions
 
@@ -105,12 +121,26 @@ hero's `brand-mesh` background.
   `src/index.css` collapses all transition/animation durations to near-zero
   for users with the OS-level preference set, as a safety net.
 - The entry `Loader` (`components/ui/Loader.tsx`) is intentionally
-  logo-free - a single spinner and a small wordmark, nothing more - so it
-  reads as a brief loading beat rather than a splash screen. `Root.tsx`
-  coordinates with it via an `onFinished` callback: once the loader
-  finishes its own fade-out, the main app content cross-fades in
+  minimal - a single spinner (`components/ui/Spinner.tsx`), nothing else -
+  so it reads as a brief loading beat rather than a splash screen.
+  `Root.tsx` coordinates with it via an `onFinished` callback: once the
+  loader finishes its own fade-out, the main app content cross-fades in
   (`transition-opacity duration-500`) rather than appearing in an instant
   cut. Both steps are skipped for `prefers-reduced-motion`.
+- In-app navigation gets the same "loading beat, then fade in" treatment,
+  not just the initial page load: `Layout.tsx` detects a real route change
+  (comparing `pathname` against a `settledPathname` it holds, adjusted
+  during render rather than in an effect - see the comment there for why),
+  shows `PageTransitionOverlay` (the same `Spinner`, reused) for a fixed
+  ~1s window, then fades the new page in the same way `Root.tsx` fades in
+  the very first load. Skipped entirely for `prefers-reduced-motion` -
+  the route just settles immediately with no overlay or delay.
+- The animated stat counters on Home (`useCountUp` in `src/hooks/`) count
+  up with an ease-out curve over ~1.1s, starting shortly after the hero
+  mounts. They're deliberately placed to land above the fold (see the
+  Home hero's compact vertical spacing) since there's no scroll-in moment
+  to trigger them otherwise. Reduced-motion renders the final value
+  immediately, no counting.
 - The mobile nav drawer opens from the **left edge** of the screen
   (`components/layout/MobileNav.tsx`), not the right - a deliberate
   layout choice for this app, consistent everywhere the drawer appears.
