@@ -12,7 +12,7 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="brand-mesh border-b border-ink-900/6 pb-12 pt-12 sm:pb-14 sm:pt-16">
+    <section className="border-b border-ink-900/6 pb-12 pt-12 sm:pb-14 sm:pt-16">
       <div className="container-page text-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-teal-700">
           <span className="h-1.5 w-1.5 rounded-full bg-coral-500" aria-hidden="true" />

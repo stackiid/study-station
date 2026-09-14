@@ -21,6 +21,23 @@ tokens (`bg-teal-700`, `text-coral-500`, etc.).
 | `--color-coral-400..700` | `#ff8f5e` → `#c04f23` | Accent: CTAs, highlights, active states |
 | `--color-ink-300..900` | `#93a29c` → `#142524` | Text hierarchy (body copy down to near-black headings) |
 
+## Page background
+
+The subtle teal/coral tint visible on every page is a single
+`background-image` on `body` (`index.css`, `@layer base`) with
+`background-attachment: fixed`, not a per-section effect. It used to be
+applied per-section (each hero/banner had its own `brand-mesh` accent),
+but that created a visible seam wherever one section's tinted background
+met the next section's flat one - most noticeably right where the
+floating header sits, since the gap around it showed flat `body` color
+while the section just below it showed the tinted one. Pinning one
+continuous gradient to the viewport on `body` itself means every page,
+and the area behind the header, all show the exact same background with
+no seam anywhere, regardless of scroll position. `.brand-mesh` still
+exists as a separate, bolder utility class for small decorative accents
+placed on top of an already-solid background (e.g. the CTA band on Home)
+- that's a different use case from page-level tinting.
+
 ## Typography
 
 - **Display font**: Sora (headings) - bold, geometric, slightly warm.
@@ -101,13 +118,18 @@ change with it.
 - **Scrollbar**: styled globally in `index.css` (`::-webkit-scrollbar` +
   Firefox's `scrollbar-color`) to a teal thumb on a soft paper track,
   instead of the OS default, on every scrollable surface in the app.
-- **Selects**: the `.select-field` utility class (`index.css`) hides the
-  native control's default appearance and draws a custom teal chevron, so
-  closed dropdowns match the app's rounded, teal-bordered inputs. Note the
-  open dropdown *panel* (the list of options) is still rendered by the
-  browser/OS - CSS can't restyle that part cross-browser without replacing
-  `<select>` with a fully custom JS listbox, which wasn't warranted for the
-  one sort control currently in the app.
+- **Selects**: `components/ui/Select.tsx` is a fully custom listbox, not a
+  styled native `<select>` - the trigger, the open panel, and every option
+  are our own markup (the `.select-field` class in `index.css` still
+  supplies the shared trigger look - rounded, teal-bordered, custom
+  chevron - reused from the input styling). This exists because a native
+  `<select>`'s open option list is rendered by the browser/OS itself and
+  can't be restyled with CSS at all; replacing the whole control was the
+  only way to theme it end to end. The trigger button stays focused the
+  entire time (including while open) and drives the interaction through
+  one `onKeyDown` handler - arrow keys move a visual "active" option
+  tracked in state and exposed via `aria-activedescendant`, rather than
+  moving real focus into the list.
 
 ## Motion principles
 

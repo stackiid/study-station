@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PageHero } from "../components/ui/PageHero";
 import { CategoryFilter } from "../components/ui/CategoryFilter";
+import { Select } from "../components/ui/Select";
 import { SearchInput } from "../components/search/SearchInput";
 import { CourseCard } from "../components/cards/CourseCard";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -18,6 +19,12 @@ const levels: { id: SkillLevel | "all"; label: string }[] = [
 ];
 
 type SortOption = "featured" | "rating" | "title";
+
+const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "featured", label: "Featured" },
+  { value: "rating", label: "Highest rated" },
+  { value: "title", label: "Title (A-Z)" },
+];
 
 export default function Courses() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -94,18 +101,10 @@ export default function Courses() {
             ))}
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-ink-500">
-            Sort by
-            <select
-              value={sort}
-              onChange={(event) => setSort(event.target.value as SortOption)}
-              className="select-field rounded-lg border border-ink-900/10 bg-white py-1.5 pl-3 text-sm text-ink-900 focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500"
-            >
-              <option value="featured">Featured</option>
-              <option value="rating">Highest rated</option>
-              <option value="title">Title (A-Z)</option>
-            </select>
-          </label>
+          <div className="flex items-center gap-2 text-sm text-ink-500">
+            <span className="shrink-0">Sort by</span>
+            <Select value={sort} onChange={setSort} options={sortOptions} aria-label="Sort courses by" className="w-40" />
+          </div>
         </div>
 
         <div ref={gridRef} className="mt-10">

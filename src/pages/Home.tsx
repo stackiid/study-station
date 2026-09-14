@@ -61,7 +61,7 @@ function Hero() {
   }, [reducedMotion]);
 
   return (
-    <section ref={heroRef} className="relative overflow-hidden brand-mesh pb-14 pt-6 sm:pb-16 sm:pt-8 lg:pt-10">
+    <section ref={heroRef} className="relative flex min-h-screen flex-col justify-center overflow-hidden py-14">
       <div className="container-page grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <span
