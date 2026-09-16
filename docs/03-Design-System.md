@@ -80,11 +80,51 @@ person working on a laptop), based on a public-domain vector source and
 hand-recolored into the site's teal/coral tokens, with its original
 ground-plane shape removed so it renders with a fully transparent
 background - no card, no border, no bounding shape - directly on the
-hero's `brand-mesh` background. It's rendered mirrored (`-scale-x-100`) in
-the Home hero specifically so the person faces toward the headline rather
-than away from it - a deliberate compositional choice, not a default
-orientation of the component itself (a future placement elsewhere on the
-site should judge the correct direction independently).
+page's ambient background (see "Page background" above). It's rendered
+mirrored (`-scale-x-100`) in the Home hero specifically so the person
+faces toward the headline rather than away from it - a deliberate
+compositional choice, not a default orientation of the component itself
+(a future placement elsewhere on the site should judge the correct
+direction independently).
+
+It's hidden below the `sm` breakpoint (`hidden sm:flex` on its wrapper)
+and only reappears at `sm` and up. This is a deliberate trade-off, not an
+arbitrary choice: on a phone-sized viewport, the hero content (header
+through the stat counters) is sized to fit within the initial `100vh` -
+see "Hero viewport fit" below - and a phone simply doesn't have the
+spare vertical room to stack the illustration below the text and still
+fit. `sm` and up either have the two-column layout (`lg:`) or, in the
+sm-to-lg portrait range, enough extra height that stacking it below the
+text no longer pushes the fold.
+
+## Hero viewport fit
+
+The Home hero is sized to fill (and not exceed) the space between the
+floating header and the bottom of the initial viewport, so "Featured
+Courses" only becomes visible once the visitor actually scrolls - never
+a sliver of it peeking in on load, never empty space before it either.
+Two things make this work together:
+
+- **Height**: the hero section uses
+  `min-h-[calc(100vh-5.25rem)] sm:min-h-[calc(100vh-5.75rem)]`, not a
+  plain `min-h-screen`. This matters: the hero doesn't start at the true
+  top of the viewport, it starts *after* the floating header's own
+  height and margin (`5.25rem`/`5.75rem`, matching `Layout.tsx`'s
+  `<main>` padding-top exactly). A plain `100vh` section starting that
+  far down would always end up with its own bottom edge that far *past*
+  the actual fold, regardless of how its content is spaced internally -
+  subtracting the header's offset from the target height is what makes
+  the section's bottom edge land exactly at the fold.
+- **Content**: within that height, the hero's content column uses a
+  noticeably tighter mobile rhythm than its `sm:`-and-up sizing (smaller
+  heading, a separate shorter one-sentence description shown only below
+  `sm` via `sm:hidden`/`hidden sm:inline`, tighter gaps, less section
+  padding) so it comfortably fits phone viewports down to about 360px
+  wide without needing to be cropped or scrolled to reach the stat
+  counters. Content is then vertically centered in the available height
+  (`flex flex-col justify-center`) so slack space (when a taller phone
+  leaves some) is distributed evenly above and below rather than
+  collecting awkwardly at one edge.
 
 ## Floating header
 

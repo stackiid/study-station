@@ -61,12 +61,15 @@ function Hero() {
   }, [reducedMotion]);
 
   return (
-    <section ref={heroRef} className="relative flex min-h-screen flex-col justify-center overflow-hidden py-14">
-      <div className="container-page grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <section
+      ref={heroRef}
+      className="relative flex min-h-[calc(100vh-5.25rem)] flex-col justify-center overflow-hidden py-5 sm:min-h-[calc(100vh-5.75rem)] sm:py-14"
+    >
+      <div className="container-page grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
         <div>
           <span
             data-hero-eyebrow
-            className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-teal-700"
+            className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-teal-700 sm:px-4 sm:py-1.5"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-coral-500" aria-hidden="true" />
             100% free, always
@@ -74,17 +77,22 @@ function Hero() {
 
           <h1
             data-hero-title
-            className="mt-4 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-teal-900 text-balance sm:text-5xl"
+            className="mt-3 font-display text-3xl font-extrabold leading-[1.06] tracking-tight text-teal-900 text-balance sm:mt-4 sm:text-5xl sm:leading-[1.08]"
           >
             Study smart with courses, tutorials & resources in one place
           </h1>
 
-          <p data-hero-copy className="mt-4 max-w-xl text-base leading-relaxed text-ink-500 sm:text-lg">
-            {site.description} No paywalls, no sign-up walls - just organized, searchable learning material curated
-            for developers and designers.
+          <p data-hero-copy className="mt-2 max-w-xl text-sm leading-relaxed text-ink-500 sm:mt-4 sm:text-lg">
+            <span className="sm:hidden">
+              Free, curated courses, tutorials, and resources - organized and searchable, no sign-up required.
+            </span>
+            <span className="hidden sm:inline">
+              {site.description} No paywalls, no sign-up walls - just organized, searchable learning material curated
+              for developers and designers.
+            </span>
           </p>
 
-          <div data-hero-cta className="mt-6 flex flex-wrap items-center gap-3">
+          <div data-hero-cta className="mt-4 flex flex-wrap items-center gap-3 sm:mt-6">
             <LinkButton to="/courses" size="lg" icon={<i className="fa-solid fa-arrow-right" />}>
               Explore courses
             </LinkButton>
@@ -93,7 +101,7 @@ function Hero() {
             </LinkButton>
           </div>
 
-          <dl className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-4">
+          <dl className="mt-5 grid grid-cols-2 gap-4 sm:mt-8 sm:grid-cols-4 sm:gap-4">
             {stats.map((stat) => (
               <div key={stat.label} data-hero-stat>
                 <dt className="text-xs font-semibold uppercase tracking-wide text-ink-300">{stat.label}</dt>
@@ -105,7 +113,13 @@ function Hero() {
           </dl>
         </div>
 
-        <div data-hero-mark className="relative mx-auto flex w-full max-w-md items-center justify-center">
+        {/* Hidden below `sm` to protect the mobile 100vh fit (header through
+            the stat counters) - a phone-sized viewport doesn't have the
+            spare vertical room to stack this below the text and still fit.
+            Tablets and up have either the width for the two-column layout
+            (`lg:`) or, in the sm-to-lg portrait range, enough extra height
+            that stacking it below the text no longer pushes the fold. */}
+        <div data-hero-mark className="relative mx-auto hidden w-full max-w-md items-center justify-center sm:flex">
           <div className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl" aria-hidden="true" />
           <PersonIllustration className="w-full max-w-sm -scale-x-100 drop-shadow-md sm:max-w-md" />
         </div>
