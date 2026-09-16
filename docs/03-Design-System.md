@@ -157,6 +157,12 @@ change with it.
   ~1s window, then fades the new page in the same way `Root.tsx` fades in
   the very first load. Skipped entirely for `prefers-reduced-motion` -
   the route just settles immediately with no overlay or delay.
+  Hiding and revealing `<main>` are deliberately asymmetric: hiding is
+  instant (no CSS transition at all, via the `instantHide` flag), because
+  `<Outlet/>` has already swapped in the new page's DOM by the time the
+  overlay mounts - animating that hide over any duration would mean the
+  new page is genuinely visible, fading, for that whole window. Only the
+  *reveal*, once the overlay's ~1s window ends, is an animated fade-in.
 - The animated stat counters on Home (`useCountUp` in `src/hooks/`) count
   up with an ease-out curve over ~1.1s, starting shortly after the hero
   mounts. They're deliberately placed to land above the fold (see the
