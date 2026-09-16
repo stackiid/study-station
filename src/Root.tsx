@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import App from "./App";
 import { Loader } from "./components/ui/Loader";
 import { useReducedMotion } from "./hooks/useReducedMotion";
@@ -19,16 +20,22 @@ export function Root() {
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      {showLoader && <Loader onFinished={handleLoaderFinished} />}
-      <div
-        className={
-          reducedMotion
-            ? undefined
-            : `transition-opacity duration-500 ease-out ${contentVisible ? "opacity-100" : "opacity-0"}`
-        }
-      >
-        <App />
-      </div>
+      {/* reducedMotion="user" makes every Framer Motion animation in the
+          app (the filter/search grid transitions) automatically respect
+          prefers-reduced-motion, the same way every hand-written
+          GSAP/CSS animation elsewhere already does via useReducedMotion. */}
+      <MotionConfig reducedMotion="user">
+        {showLoader && <Loader onFinished={handleLoaderFinished} />}
+        <div
+          className={
+            reducedMotion
+              ? undefined
+              : `transition-opacity duration-500 ease-out ${contentVisible ? "opacity-100" : "opacity-0"}`
+          }
+        >
+          <App />
+        </div>
+      </MotionConfig>
     </BrowserRouter>
   );
 }

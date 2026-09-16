@@ -1,19 +1,21 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { PageHero } from "../components/ui/PageHero";
 import { CategoryFilter } from "../components/ui/CategoryFilter";
+import { AnimatedGridItem } from "../components/ui/AnimatedGridItem";
 import { SearchInput } from "../components/search/SearchInput";
 import { ResourceCard } from "../components/cards/ResourceCard";
 import { EmptyState } from "../components/ui/EmptyState";
 import { resources } from "../data/resources";
 import { normalizeSearchText } from "../utils/search";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 export default function Resources() {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
   const [query, setQuery] = useState("");
-  const gridRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const availableIds = useMemo(() => new Set(resources.map((r) => r.category)), []);
 
@@ -29,8 +31,6 @@ export default function Resources() {
       return matchesCategory && matchesQuery;
     });
   }, [category, query]);
-
-  useScrollReveal(gridRef, { selector: "[data-reveal]" });
 
   return (
     <>
@@ -57,31 +57,49 @@ export default function Resources() {
           availableIds={availableIds}
         />
 
-        <div ref={gridRef} className="mt-10">
-          {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((resource) => (
-                <ResourceCard key={resource.id} resource={resource} />
-              ))}
-            </div>
-          ) : (
-            <EmptyState
-              title="No resources match those filters"
-              description="Try a different category or search term."
-              action={
-                <button
-                  type="button"
-                  onClick={() => {
-                    setQuery("");
-                    setSearchParams({});
-                  }}
-                  className="text-sm font-semibold text-teal-700 underline underline-offset-4 hover:text-teal-800"
-                >
-                  Reset all filters
-                </button>
-              }
-            />
-          )}
+        <div className="mt-10">
+          <AnimatePresence mode="popLayout">
+            {filtered.length > 0 ? (
+              <motion.div
+                key="grid"
+                layout
+                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filtered.map((resource) => (
+                    <AnimatedGridItem key={resource.id}>
+                      <ResourceCard resource={resource} />
+                    </AnimatedGridItem>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: reducedMotion ? 0 : 0.2 }}
+              >
+                <EmptyState
+                  title="No resources match those filters"
+                  description="Try a different category or search term."
+                  action={
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuery("");
+                        setSearchParams({});
+                      }}
+                      className="text-sm font-semibold text-teal-700 underline underline-offset-4 hover:text-teal-800"
+                    >
+                      Reset all filters
+                    </button>
+                  }
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
     </>

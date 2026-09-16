@@ -172,6 +172,38 @@ change with it.
 - The mobile nav drawer opens from the **left edge** of the screen
   (`components/layout/MobileNav.tsx`), not the right - a deliberate
   layout choice for this app, consistent everywhere the drawer appears.
+- **Filtered/searched grids** (Courses, Resources, Tutorials) animate
+  additions and removals instead of snapping instantly, via Framer
+  Motion: `components/ui/AnimatedGridItem.tsx` wraps each card, and the
+  page wraps the `.map()` of those in `<AnimatePresence mode="popLayout">`.
+  A card that stops matching the filter fades + scales down (`opacity: 1
+  → 0`, `scale: 1 → 0.92`) over 250ms before it's actually removed from
+  the DOM; a newly-matching card fades + scales up the same way; every
+  card has `layout` enabled so surviving siblings smoothly slide into the
+  gap a removed card leaves, instead of the grid reflowing instantly
+  (Framer Motion's FLIP implementation, not a hand-rolled one).
+  `mode="popLayout"` on the `AnimatePresence` is what lets that reflow
+  start immediately rather than waiting for the exiting card's own
+  animation to finish. Each of the three pages also wraps its own
+  grid-vs-empty-state swap (all filters returning zero results) in a
+  *second*, outer `AnimatePresence`, since that's a different pair of
+  elements being swapped, not an addition/removal within the same list -
+  a single `AnimatePresence` only tracks its own direct children, so
+  animating both the individual cards *and* the whole-grid-vs-empty-state
+  swap genuinely needs two, nested.
+
+  One non-obvious gotcha worth documenting: the app-wide
+  `<MotionConfig reducedMotion="user">` (`Root.tsx`) does **not** disable
+  this animation for `prefers-reduced-motion` users on its own. Framer
+  Motion's built-in reduced-motion handling only suppresses the
+  *positional* part of `layout` animations (the FLIP reflow) - it
+  deliberately leaves explicit `initial`/`animate`/`exit` props alone,
+  since those are treated as intentional rather than incidental motion.
+  `AnimatedGridItem` therefore also checks the app's own
+  `useReducedMotion()` hook directly and zeroes the transition duration
+  itself, the same way every other animation in the app does - don't
+  assume `MotionConfig` alone is sufficient for a new Framer Motion
+  animation; verify it against `useReducedMotion()` explicitly.
 
 ## Accessibility baseline
 

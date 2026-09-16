@@ -15,11 +15,12 @@ study-station/
 │   ├── assets/brand/         # Source logo PNG (see docs/03, docs/05)
 │   ├── components/
 │   │   ├── ui/                # Generic, content-agnostic building blocks
-│   │   │   (Button, Badge, Tag, SectionHeading, Loader, EmptyState,
-│   │   │    ErrorState, Logo, LogoMark, PersonIllustration, PageHero,
-│   │   │    CategoryFilter,
+│   │   │   (Button, Badge, Tag, SectionHeading, Loader, Spinner,
+│   │   │    EmptyState, ErrorState, Logo, LogoMark, PersonIllustration,
+│   │   │    PageHero, CategoryFilter, Select, AnimatedGridItem,
 │   │   │    buttonStyles.ts)
-│   │   ├── layout/            # Header, MobileNav, Footer, Layout (route shell)
+│   │   ├── layout/            # Header, MobileNav, Footer, Layout (route shell),
+│   │   │                        PageTransitionOverlay
 │   │   ├── search/            # GlobalSearch overlay + its sub-pieces
 │   │   └── cards/              # CourseCard, ResourceCard, TutorialCard, CategoryCard
 │   ├── data/                   # ALL site content lives here (see docs/04)

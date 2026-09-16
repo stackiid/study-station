@@ -28,7 +28,7 @@ content, reorganized and made searchable.
 | Build tool           | Vite                                      |
 | Styling             | Tailwind CSS v4 (`@tailwindcss/vite`)     |
 | Routing             | React Router v7 (`BrowserRouter`)         |
-| Animation           | GSAP + `ScrollTrigger`                    |
+| Animation           | GSAP + `ScrollTrigger`; Framer Motion for filtered-list transitions |
 | Icons               | Font Awesome Free (bundled via npm)       |
 | Fonts               | Google Fonts (Sora + Manrope, via `<link>`) |
 | Linting             | oxlint                                    |
