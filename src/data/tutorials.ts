@@ -1,4 +1,5 @@
 import type { Tutorial } from "../types";
+import { assetPath } from "../utils/assets";
 
 /**
  * To add a new tutorial: copy any object below, give it a unique `id`,
@@ -15,7 +16,7 @@ export const tutorials: Tutorial[] = [
     category: "programming-fundamentals",
     channel: "Code with Harry",
     url: "https://youtu.be/UrsmFxEIp5k?si=8xrFRAg1dYTwsp5u",
-    image: "/images/tutorials/python-tutorial.jpg",
+    image: assetPath("/images/tutorials/python-tutorial.jpg"),
     tags: ["python", "beginner", "programming basics"],
     featured: true,
   },
@@ -28,7 +29,7 @@ export const tutorials: Tutorial[] = [
     category: "web-development",
     channel: "JavaScript Mastery",
     url: "https://youtu.be/dCLhUialKPQ?si=Qmt4PFoP9r1Vb6Zi",
-    image: "/images/tutorials/react-js.jpg",
+    image: assetPath("/images/tutorials/react-js.jpg"),
     tags: ["react", "javascript", "frontend", "hooks"],
     featured: true,
   },
@@ -41,7 +42,7 @@ export const tutorials: Tutorial[] = [
     category: "web-development",
     channel: "SuperSimpleDev",
     url: "https://youtu.be/EerdGm-ehJQ?si=D_SATvS3ibURd6vq",
-    image: "/images/tutorials/javascript-full-course.jpg",
+    image: assetPath("/images/tutorials/javascript-full-course.jpg"),
     tags: ["javascript", "web development", "beginner", "es6"],
     featured: true,
   },
@@ -54,7 +55,7 @@ export const tutorials: Tutorial[] = [
     category: "web-development",
     channel: "freeCodeCamp",
     url: "https://youtu.be/LzMnsfqjzkA?si=4RSlj71o8W3hgUro",
-    image: "/images/tutorials/become-a-full-stack-dev.jpg",
+    image: assetPath("/images/tutorials/become-a-full-stack-dev.jpg"),
     tags: ["full stack", "web development", "roadmap", "databases"],
   },
 ];

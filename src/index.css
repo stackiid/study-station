@@ -166,6 +166,28 @@
   height: 100vh;
 }
 
+/* Mobile-only "Scroll down" hint at the foot of the Home hero. A gentle
+   vertical drift combined with an opacity pulse - deliberately slow and
+   low-contrast so it reads as a quiet affordance rather than something
+   demanding attention. The global prefers-reduced-motion rule in
+   @layer base already collapses this animation to a near-zero duration,
+   so no separate guard is needed here. */
+@keyframes scrollHint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 0.85;
+  }
+}
+
+.scroll-hint {
+  animation: scrollHint 2.4s ease-in-out infinite;
+}
+
 /* Custom scrollbar, matching the brand palette instead of the OS default. */
 html {
   scrollbar-width: thin; /* Firefox */

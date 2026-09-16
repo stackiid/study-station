@@ -63,13 +63,13 @@ function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative flex min-h-[calc(100vh-5.25rem)] flex-col justify-center overflow-hidden py-5 sm:min-h-[calc(100vh-5.75rem)] sm:py-14"
+      className="relative flex min-h-[calc(100vh-5.25rem)] flex-col justify-center overflow-hidden pt-4 pb-12 sm:min-h-[calc(100vh-5.75rem)] sm:py-14"
     >
       <div className="container-page grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
         <div>
           <span
             data-hero-eyebrow
-            className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-teal-700 sm:px-4 sm:py-1.5"
+            className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-3.5 py-0.5 text-xs font-bold uppercase tracking-[0.12em] text-teal-700 sm:px-4 sm:py-1.5"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-coral-500" aria-hidden="true" />
             100% free, always
@@ -77,14 +77,15 @@ function Hero() {
 
           <h1
             data-hero-title
-            className="mt-3 font-display text-3xl font-extrabold leading-[1.06] tracking-tight text-teal-900 text-balance sm:mt-4 sm:text-5xl sm:leading-[1.08]"
+            className="mt-2 font-display text-[1.7rem] font-extrabold leading-[1.08] tracking-tight text-teal-900 text-balance sm:mt-4 sm:text-5xl sm:leading-[1.08]"
           >
             Study smart with courses, tutorials & resources in one place
           </h1>
 
-          <p data-hero-copy className="mt-2 max-w-xl text-sm leading-relaxed text-ink-500 sm:mt-4 sm:text-lg">
+          <p data-hero-copy className="mt-2 max-w-xl text-sm leading-[1.5] text-ink-500 sm:mt-4 sm:text-lg sm:leading-relaxed">
             <span className="sm:hidden">
-              Free, curated courses, tutorials, and resources - organized and searchable, no sign-up required.
+              Access free, hand-picked courses, step-by-step tutorials, and developer resources - all organized,
+              searchable, and completely accessible without signing up.
             </span>
             <span className="hidden sm:inline">
               {site.description} No paywalls, no sign-up walls - just organized, searchable learning material curated
@@ -92,7 +93,7 @@ function Hero() {
             </span>
           </p>
 
-          <div data-hero-cta className="mt-4 flex flex-wrap items-center gap-3 sm:mt-6">
+          <div data-hero-cta className="mt-3.5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
             <LinkButton to="/courses" size="lg" icon={<i className="fa-solid fa-arrow-right" />}>
               Explore courses
             </LinkButton>
@@ -101,11 +102,11 @@ function Hero() {
             </LinkButton>
           </div>
 
-          <dl className="mt-5 grid grid-cols-2 gap-4 sm:mt-8 sm:grid-cols-4 sm:gap-4">
+          <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 sm:mt-8 sm:grid-cols-4 sm:gap-4">
             {stats.map((stat) => (
               <div key={stat.label} data-hero-stat>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-ink-300">{stat.label}</dt>
-                <dd className="mt-1 font-display text-2xl font-extrabold text-teal-900 sm:text-3xl">
+                <dt className="text-[0.65rem] font-semibold uppercase tracking-wide text-ink-300 sm:text-xs">{stat.label}</dt>
+                <dd className="mt-0.5 font-display text-[1.4rem] font-extrabold text-teal-900 sm:mt-1 sm:text-3xl">
                   <StatCounter target={stat.target} prefix={stat.prefix} suffix={stat.suffix} />
                 </dd>
               </div>
@@ -123,6 +124,21 @@ function Hero() {
           <div className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl" aria-hidden="true" />
           <PersonIllustration className="w-full max-w-sm -scale-x-100 drop-shadow-md sm:max-w-md" />
         </div>
+      </div>
+
+      {/* Mobile-only scroll affordance, sitting in the empty space below the
+          stat counters. Absolutely positioned on purpose: the hero's content
+          column is vertically centred inside a fixed `100vh - header` box, so
+          adding this to the normal flow would push that content upward and
+          risk shunting the stat counters past the fold. The section reserves
+          matching bottom padding below `sm` so this can never sit on top of
+          the counters. Decorative, so it's hidden from assistive tech. */}
+      <div
+        aria-hidden="true"
+        className="scroll-hint pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-1 text-ink-300 sm:hidden"
+      >
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">Scroll down</span>
+        <i className="fa-solid fa-chevron-down text-[0.7rem]" />
       </div>
     </section>
   );

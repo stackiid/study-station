@@ -18,12 +18,18 @@ Open `src/data/courses.ts` and add a new object to the `courses` array:
   provider: "Instructor or Org Name",
   source: "Google Drive",              // where it's hosted
   url: "https://...",
-  image: "/images/courses/your-image.jpg",
+  image: assetPath("/images/courses/your-image.jpg"),
   rating: 4.5,
   tags: ["tag-one", "tag-two"],
   featured: false,                      // true surfaces it on Home + top of Courses
 }
 ```
+
+Note the `assetPath(...)` wrapper on `image` - always use it for
+anything under `public/`. It prefixes the path with Vite's configured base
+URL so the image resolves both locally (served from `/`) and on GitHub
+Pages (served from a repo sub-path). A bare `"/images/..."` string would
+404 on GitHub Pages. See `src/utils/assets.ts`.
 
 Then drop the thumbnail into `public/images/courses/`. Keep thumbnails
 reasonably sized (this repo's existing images are re-encoded to a max
