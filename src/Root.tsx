@@ -10,9 +10,6 @@ export function Root() {
   const [contentVisible, setContentVisible] = useState(false);
   const reducedMotion = useReducedMotion();
 
-  // Passed to Loader so the two stay in sync: content only starts fading
-  // in once the loader has actually finished its own fade-out, instead of
-  // both racing against separately-guessed timers.
   const handleLoaderFinished = useCallback(() => {
     setShowLoader(false);
     setContentVisible(true);
@@ -20,10 +17,6 @@ export function Root() {
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      {/* reducedMotion="user" makes every Framer Motion animation in the
-          app (the filter/search grid transitions) automatically respect
-          prefers-reduced-motion, the same way every hand-written
-          GSAP/CSS animation elsewhere already does via useReducedMotion. */}
       <MotionConfig reducedMotion="user">
         {showLoader && <Loader onFinished={handleLoaderFinished} />}
         <div

@@ -9,7 +9,11 @@
 
 export type ContentType = "course" | "resource" | "tutorial";
 
-export type SkillLevel = "beginner" | "intermediate" | "advanced" | "all-levels";
+export type SkillLevel =
+  | "beginner"
+  | "intermediate"
+  | "advanced"
+  | "all-levels";
 
 export interface Category {
   /** URL-safe unique identifier, e.g. "web-development" */

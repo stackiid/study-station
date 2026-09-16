@@ -10,7 +10,11 @@ interface SearchResultsProps {
   onNavigate?: () => void;
 }
 
-export function SearchResults({ results, activeIndex, onNavigate }: SearchResultsProps) {
+export function SearchResults({
+  results,
+  activeIndex,
+  onNavigate,
+}: SearchResultsProps) {
   const listRef = useRef<HTMLUListElement>(null);
   const reducedMotion = useReducedMotion();
 
@@ -32,8 +36,16 @@ export function SearchResults({ results, activeIndex, onNavigate }: SearchResult
       </p>
       <ul ref={listRef} role="listbox" className="flex flex-col gap-0.5">
         {results.map((result, index) => (
-          <li key={`${result.item.type}-${result.item.id}`} role="option" aria-selected={index === activeIndex}>
-            <SearchResultItem result={result} active={index === activeIndex} onNavigate={onNavigate} />
+          <li
+            key={`${result.item.type}-${result.item.id}`}
+            role="option"
+            aria-selected={index === activeIndex}
+          >
+            <SearchResultItem
+              result={result}
+              active={index === activeIndex}
+              onNavigate={onNavigate}
+            />
           </li>
         ))}
       </ul>

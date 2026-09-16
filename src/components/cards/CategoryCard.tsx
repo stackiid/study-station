@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import type { Category } from "../../types";
 
-export function CategoryCard({ category, count }: { category: Category; count: number }) {
+export function CategoryCard({
+  category,
+  count,
+}: {
+  category: Category;
+  count: number;
+}) {
   return (
     <Link
       to={`/courses?category=${category.id}`}

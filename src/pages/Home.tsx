@@ -30,9 +30,15 @@ const stats = [
   { label: "Cost to join", target: 0, prefix: "$" },
 ];
 
-function StatCounter({ target, prefix = "", suffix = "" }: { target: number; prefix?: string; suffix?: string }) {
-  // Starts as soon as the hero mounts - the stats row lives above the
-  // fold by design, so there's no scroll-triggering to wire up here.
+function StatCounter({
+  target,
+  prefix = "",
+  suffix = "",
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+}) {
   const value = useCountUp(target, { duration: 1100, delay: 500 });
   return (
     <>
@@ -46,9 +52,6 @@ function StatCounter({ target, prefix = "", suffix = "" }: { target: number; pre
 function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
-  // Hide the mobile "Scroll down" hint as soon as the visitor has moved off
-  // the top of the page - once the next section is coming into view it's
-  // just repeating advice they've already taken.
   const scrolledPast = useScrolledPast(50);
 
   useEffect(() => {
@@ -57,11 +60,31 @@ function Hero() {
       const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
       timeline
         .from("[data-hero-eyebrow]", { opacity: 0, y: 14, duration: 0.5 })
-        .from("[data-hero-title]", { opacity: 0, y: 22, duration: 0.65 }, "-=0.3")
-        .from("[data-hero-copy]", { opacity: 0, y: 16, duration: 0.55 }, "-=0.35")
-        .from("[data-hero-cta]", { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 }, "-=0.3")
-        .from("[data-hero-mark]", { opacity: 0, scale: 0.85, rotate: -8, duration: 0.7 }, "-=0.6")
-        .from("[data-hero-stat]", { opacity: 0, y: 12, duration: 0.4, stagger: 0.06 }, "-=0.25");
+        .from(
+          "[data-hero-title]",
+          { opacity: 0, y: 22, duration: 0.65 },
+          "-=0.3",
+        )
+        .from(
+          "[data-hero-copy]",
+          { opacity: 0, y: 16, duration: 0.55 },
+          "-=0.35",
+        )
+        .from(
+          "[data-hero-cta]",
+          { opacity: 0, y: 14, duration: 0.5, stagger: 0.08 },
+          "-=0.3",
+        )
+        .from(
+          "[data-hero-mark]",
+          { opacity: 0, scale: 0.85, rotate: -8, duration: 0.7 },
+          "-=0.6",
+        )
+        .from(
+          "[data-hero-stat]",
+          { opacity: 0, y: 12, duration: 0.4, stagger: 0.06 },
+          "-=0.25",
+        );
     }, heroRef);
     return () => ctx.revert();
   }, [reducedMotion]);
@@ -77,7 +100,10 @@ function Hero() {
             data-hero-eyebrow
             className="inline-flex items-center gap-2 rounded-full border border-teal-700/15 bg-white/70 px-3.5 py-0.5 text-xs font-bold uppercase tracking-[0.12em] text-teal-700 sm:px-4 sm:py-1.5"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-coral-500" aria-hidden="true" />
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-coral-500"
+              aria-hidden="true"
+            />
             100% free, always
           </span>
 
@@ -88,19 +114,30 @@ function Hero() {
             Study smart with courses, tutorials & resources in one place
           </h1>
 
-          <p data-hero-copy className="mt-2 max-w-xl text-sm leading-[1.5] text-ink-500 sm:mt-4 sm:text-lg sm:leading-relaxed">
+          <p
+            data-hero-copy
+            className="mt-2 max-w-xl text-sm leading-[1.5] text-ink-500 sm:mt-4 sm:text-lg sm:leading-relaxed"
+          >
             <span className="sm:hidden">
-              Access free, hand-picked courses, step-by-step tutorials, and developer resources - all organized,
-              searchable, and completely accessible without signing up.
+              Access free, hand-picked courses, step-by-step tutorials, and
+              developer resources - all organized, searchable, and completely
+              accessible without signing up.
             </span>
             <span className="hidden sm:inline">
-              {site.description} No paywalls, no sign-up walls - just organized, searchable learning material curated
-              for developers and designers.
+              {site.description} No paywalls, no sign-up walls - just organized,
+              searchable learning material curated for developers and designers.
             </span>
           </p>
 
-          <div data-hero-cta className="mt-3.5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3">
-            <LinkButton to="/courses" size="lg" icon={<i className="fa-solid fa-arrow-right" />}>
+          <div
+            data-hero-cta
+            className="mt-3.5 flex flex-wrap items-center gap-2.5 sm:mt-6 sm:gap-3"
+          >
+            <LinkButton
+              to="/courses"
+              size="lg"
+              icon={<i className="fa-solid fa-arrow-right" />}
+            >
               Explore courses
             </LinkButton>
             <LinkButton to="/resources" variant="outline" size="lg">
@@ -111,42 +148,33 @@ function Hero() {
           <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 sm:mt-8 sm:grid-cols-4 sm:gap-4">
             {stats.map((stat) => (
               <div key={stat.label} data-hero-stat>
-                <dt className="text-[0.65rem] font-semibold uppercase tracking-wide text-ink-300 sm:text-xs">{stat.label}</dt>
+                <dt className="text-[0.65rem] font-semibold uppercase tracking-wide text-ink-300 sm:text-xs">
+                  {stat.label}
+                </dt>
                 <dd className="mt-0.5 font-display text-[1.4rem] font-extrabold text-teal-900 sm:mt-1 sm:text-3xl">
-                  <StatCounter target={stat.target} prefix={stat.prefix} suffix={stat.suffix} />
+                  <StatCounter
+                    target={stat.target}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                  />
                 </dd>
               </div>
             ))}
           </dl>
         </div>
 
-        {/* Hidden below `sm` to protect the mobile 100vh fit (header through
-            the stat counters) - a phone-sized viewport doesn't have the
-            spare vertical room to stack this below the text and still fit.
-            Tablets and up have either the width for the two-column layout
-            (`lg:`) or, in the sm-to-lg portrait range, enough extra height
-            that stacking it below the text no longer pushes the fold. */}
-        <div data-hero-mark className="relative mx-auto hidden w-full max-w-md items-center justify-center sm:flex">
-          <div className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl" aria-hidden="true" />
+        <div
+          data-hero-mark
+          className="relative mx-auto hidden w-full max-w-md items-center justify-center sm:flex"
+        >
+          <div
+            className="absolute inset-0 -z-10 rounded-full bg-white/50 blur-3xl"
+            aria-hidden="true"
+          />
           <PersonIllustration className="w-full max-w-sm -scale-x-100 drop-shadow-md sm:max-w-md" />
         </div>
       </div>
 
-      {/* Mobile-only scroll affordance, sitting in the empty space below the
-          stat counters. Absolutely positioned on purpose: the hero's content
-          column is vertically centred inside a fixed `100vh - header` box, so
-          adding this to the normal flow would push that content upward and
-          risk shunting the stat counters past the fold. The section reserves
-          matching bottom padding below `sm` so this can never sit on top of
-          the counters. Decorative, so it's hidden from assistive tech.
-
-          Two nested elements rather than one, deliberately: the inner
-          element runs the looping bounce/pulse keyframes, which animate
-          `opacity` - and a running CSS animation overrides a plain
-          `opacity` declaration on the same element, so toggling the fade
-          there would have no effect. Putting the scroll-driven fade on the
-          wrapper sidesteps that entirely, since nested opacities multiply
-          (wrapper at 0 hides the child whatever its keyframe is doing). */}
       <div
         aria-hidden="true"
         className={cx(
@@ -155,7 +183,9 @@ function Hero() {
         )}
       >
         <div className="scroll-hint flex flex-col items-center gap-1 text-ink-300">
-          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">Scroll down</span>
+          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">
+            Scroll down
+          </span>
           <i className="fa-solid fa-chevron-down text-[0.7rem]" />
         </div>
       </div>
@@ -210,7 +240,11 @@ function CategoriesGrid() {
         />
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {categories.map((category) => (
-            <CategoryCard key={category.id} category={category} count={counts[category.id] ?? 0} />
+            <CategoryCard
+              key={category.id}
+              category={category}
+              count={counts[category.id] ?? 0}
+            />
           ))}
         </div>
       </div>
@@ -294,13 +328,17 @@ function CommunityCta() {
         data-reveal
         className="relative overflow-hidden rounded-[1.75rem] bg-teal-800 px-6 py-14 text-center sm:px-12 sm:py-16"
       >
-        <div className="brand-mesh absolute inset-0 opacity-40" aria-hidden="true" />
+        <div
+          className="brand-mesh absolute inset-0 opacity-40"
+          aria-hidden="true"
+        />
         <div className="relative">
           <h2 className="font-display text-3xl font-bold text-white text-balance sm:text-4xl">
             Get new courses and resources first
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-teal-50/85">
-            Join the free community channel for drop announcements, and reach out any time through the contact page.
+            Join the free community channel for drop announcements, and reach
+            out any time through the contact page.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <AnchorButton
@@ -313,7 +351,12 @@ function CommunityCta() {
             >
               Join community channel
             </AnchorButton>
-            <LinkButton to="/contact" variant="outline" size="lg" className="!bg-transparent !text-white !border-white/25 hover:!bg-white/10">
+            <LinkButton
+              to="/contact"
+              variant="outline"
+              size="lg"
+              className="!bg-transparent !text-white !border-white/25 hover:!bg-white/10"
+            >
               Contact us
             </LinkButton>
           </div>

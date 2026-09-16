@@ -32,12 +32,12 @@ Then open the local URL Vite prints (typically `http://localhost:5173`).
 
 ## Scripts
 
-| Command | What it does |
-| --- | --- |
-| `npm run dev` | Start the Vite dev server with hot reload |
-| `npm run build` | Type-check (`tsc -b`) and build to `dist/` |
-| `npm run preview` | Serve the production build locally |
-| `npm run lint` | Run `oxlint` across `src/` |
+| Command           | What it does                               |
+| ----------------- | ------------------------------------------ |
+| `npm run dev`     | Start the Vite dev server with hot reload  |
+| `npm run build`   | Type-check (`tsc -b`) and build to `dist/` |
+| `npm run preview` | Serve the production build locally         |
+| `npm run lint`    | Run `oxlint` across `src/`                 |
 
 ## Documentation
 

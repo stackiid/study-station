@@ -11,7 +11,6 @@ const sizes = {
   lg: "h-14 w-14 border-4",
 };
 
-/** A single spinning ring - the site's one and only loading indicator. */
 export function Spinner({ size = "md", className }: SpinnerProps) {
   return (
     <span

@@ -21,7 +21,11 @@ interface SearchResultItemProps {
   onNavigate?: () => void;
 }
 
-export function SearchResultItem({ result, active, onNavigate }: SearchResultItemProps) {
+export function SearchResultItem({
+  result,
+  active,
+  onNavigate,
+}: SearchResultItemProps) {
   const { item } = result;
   const category = getCategoryById(item.category);
   const href = item.url;
@@ -41,7 +45,9 @@ export function SearchResultItem({ result, active, onNavigate }: SearchResultIte
       </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2">
-          <span className="truncate font-semibold text-ink-900">{item.title}</span>
+          <span className="truncate font-semibold text-ink-900">
+            {item.title}
+          </span>
         </span>
         <span className="mt-0.5 flex items-center gap-1.5 text-xs text-ink-500">
           <span>{typeLabel[item.type]}</span>
@@ -53,7 +59,10 @@ export function SearchResultItem({ result, active, onNavigate }: SearchResultIte
           )}
         </span>
       </span>
-      <i className="fa-solid fa-arrow-up-right-from-square shrink-0 text-xs text-ink-300" aria-hidden="true" />
+      <i
+        className="fa-solid fa-arrow-up-right-from-square shrink-0 text-xs text-ink-300"
+        aria-hidden="true"
+      />
     </>
   );
 
@@ -64,7 +73,12 @@ export function SearchResultItem({ result, active, onNavigate }: SearchResultIte
 
   if (item.type === "course" && item.comingSoon) {
     return (
-      <Link to={internalHref} onClick={onNavigate} className={rowClasses} data-reveal>
+      <Link
+        to={internalHref}
+        onClick={onNavigate}
+        className={rowClasses}
+        data-reveal
+      >
         {content}
       </Link>
     );

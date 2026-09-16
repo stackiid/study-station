@@ -14,14 +14,15 @@ interface ScrollRevealOptions {
   start?: string;
 }
 
-/**
- * Fades + lifts matched children into view as the container enters the
- * viewport. One shared implementation used by every section on the site,
- * instead of bespoke scroll logic per page.
- */
 export function useScrollReveal<T extends HTMLElement>(
   containerRef: RefObject<T | null>,
-  { selector = "[data-reveal]", y = 24, stagger = 0.08, duration = 0.6, start = "top 85%" }: ScrollRevealOptions = {},
+  {
+    selector = "[data-reveal]",
+    y = 24,
+    stagger = 0.08,
+    duration = 0.6,
+    start = "top 85%",
+  }: ScrollRevealOptions = {},
 ) {
   const reducedMotion = useReducedMotion();
 

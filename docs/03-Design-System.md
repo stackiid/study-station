@@ -13,13 +13,13 @@ All tokens live in `src/index.css` under `@theme`. Never hardcode a hex
 value in a component - use the Tailwind classes generated from these
 tokens (`bg-teal-700`, `text-coral-500`, etc.).
 
-| Token | Hex | Use |
-| --- | --- | --- |
-| `--color-paper` | `#faf7f0` | Page background |
-| `--color-surface` | `#ffffff` | Cards, panels |
-| `--color-teal-500..900` | `#227c6c` → `#0a2e2c` | Primary brand color: headings, primary surfaces, the logo |
-| `--color-coral-400..700` | `#ff8f5e` → `#c04f23` | Accent: CTAs, highlights, active states |
-| `--color-ink-300..900` | `#93a29c` → `#142524` | Text hierarchy (body copy down to near-black headings) |
+| Token                    | Hex                   | Use                                                       |
+| ------------------------ | --------------------- | --------------------------------------------------------- |
+| `--color-paper`          | `#faf7f0`             | Page background                                           |
+| `--color-surface`        | `#ffffff`             | Cards, panels                                             |
+| `--color-teal-500..900`  | `#227c6c` → `#0a2e2c` | Primary brand color: headings, primary surfaces, the logo |
+| `--color-coral-400..700` | `#ff8f5e` → `#c04f23` | Accent: CTAs, highlights, active states                   |
+| `--color-ink-300..900`   | `#93a29c` → `#142524` | Text hierarchy (body copy down to near-black headings)    |
 
 ## Page background
 
@@ -36,6 +36,7 @@ and the area behind the header, all show the exact same background with
 no seam anywhere, regardless of scroll position. `.brand-mesh` still
 exists as a separate, bolder utility class for small decorative accents
 placed on top of an already-solid background (e.g. the CTA band on Home)
+
 - that's a different use case from page-level tinting.
 
 ## Typography
@@ -108,10 +109,10 @@ Two things make this work together:
 - **Height**: the hero section uses
   `min-h-[calc(100vh-5.25rem)] sm:min-h-[calc(100vh-5.75rem)]`, not a
   plain `min-h-screen`. This matters: the hero doesn't start at the true
-  top of the viewport, it starts *after* the floating header's own
+  top of the viewport, it starts _after_ the floating header's own
   height and margin (`5.25rem`/`5.75rem`, matching `Layout.tsx`'s
   `<main>` padding-top exactly). A plain `100vh` section starting that
-  far down would always end up with its own bottom edge that far *past*
+  far down would always end up with its own bottom edge that far _past_
   the actual fold, regardless of how its content is spaced internally -
   subtracting the header's offset from the target height is what makes
   the section's bottom edge land exactly at the fold.
@@ -134,7 +135,7 @@ The header (`components/layout/Header.tsx`) is a `fixed` element inset
 floating bar rather than a bar spanning the full viewport width. Because of
 this, page content can't simply start at "the header's height" the way a
 flush-to-the-edge header would - `Layout.tsx`'s `<main>` accounts for the
-header's height *plus* its `20px` top margin (`pt-[5.25rem] sm:pt-[5.75rem]`).
+header's height _plus_ its `20px` top margin (`pt-[5.25rem] sm:pt-[5.75rem]`).
 If the header's own height or margin ever changes, that padding needs to
 change with it.
 
@@ -202,7 +203,7 @@ change with it.
   `<Outlet/>` has already swapped in the new page's DOM by the time the
   overlay mounts - animating that hide over any duration would mean the
   new page is genuinely visible, fading, for that whole window. Only the
-  *reveal*, once the overlay's ~1s window ends, is an animated fade-in.
+  _reveal_, once the overlay's ~1s window ends, is an animated fade-in.
 - The animated stat counters on Home (`useCountUp` in `src/hooks/`) count
   up with an ease-out curve over ~1.1s, starting shortly after the hero
   mounts. They're deliberately placed to land above the fold (see the
@@ -217,7 +218,7 @@ change with it.
   Motion: `components/ui/AnimatedGridItem.tsx` wraps each card, and the
   page wraps the `.map()` of those in `<AnimatePresence mode="popLayout">`.
   A card that stops matching the filter fades + scales down (`opacity: 1
-  → 0`, `scale: 1 → 0.92`) over 250ms before it's actually removed from
+→ 0`, `scale: 1 → 0.92`) over 250ms before it's actually removed from
   the DOM; a newly-matching card fades + scales up the same way; every
   card has `layout` enabled so surviving siblings smoothly slide into the
   gap a removed card leaves, instead of the grid reflowing instantly
@@ -226,17 +227,17 @@ change with it.
   start immediately rather than waiting for the exiting card's own
   animation to finish. Each of the three pages also wraps its own
   grid-vs-empty-state swap (all filters returning zero results) in a
-  *second*, outer `AnimatePresence`, since that's a different pair of
+  _second_, outer `AnimatePresence`, since that's a different pair of
   elements being swapped, not an addition/removal within the same list -
   a single `AnimatePresence` only tracks its own direct children, so
-  animating both the individual cards *and* the whole-grid-vs-empty-state
+  animating both the individual cards _and_ the whole-grid-vs-empty-state
   swap genuinely needs two, nested.
 
   One non-obvious gotcha worth documenting: the app-wide
   `<MotionConfig reducedMotion="user">` (`Root.tsx`) does **not** disable
   this animation for `prefers-reduced-motion` users on its own. Framer
   Motion's built-in reduced-motion handling only suppresses the
-  *positional* part of `layout` animations (the FLIP reflow) - it
+  _positional_ part of `layout` animations (the FLIP reflow) - it
   deliberately leaves explicit `initial`/`animate`/`exit` props alone,
   since those are treated as intentional rather than incidental motion.
   `AnimatedGridItem` therefore also checks the app's own

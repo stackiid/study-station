@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { SearchInput } from "./SearchInput";
@@ -12,16 +18,6 @@ import { cx } from "../../utils/helpers";
 
 const OVERLAY_RESULT_LIMIT = 8;
 
-/**
- * Renders both the desktop and mobile search triggers plus the shared
- * overlay, as a single component instance. This is deliberate: mounting
- * two separate <GlobalSearch> instances (one per breakpoint) would give
- * each its own `open` state, its own global keydown listener, and its own
- * body-scroll lock - which can desync (e.g. the "/" shortcut opening both
- * at once) and leave the page scroll-locked after closing just one. One
- * instance, two trigger buttons shown/hidden by CSS, guarantees exactly
- * one source of truth.
- */
 export function GlobalSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -34,16 +30,6 @@ export function GlobalSearch() {
 
   const results = searchContent(query, { limit: OVERLAY_RESULT_LIMIT });
 
-  // Three-piece animation state, so the overlay gets a real fade in both
-  // directions instead of popping in and hard-unmounting on close:
-  //  - `open`: the logical/requested state (what keyboard-nav cares about)
-  //  - `mounted`: whether the overlay's DOM node exists at all
-  //  - `shown`: whether it's showing its "visible" transition classes
-  // Both transitions are triggered synchronously from the event that
-  // causes them (openOverlay / close below) - the only thing that
-  // actually needs an effect is delaying the *unmount* until the
-  // fade-out's CSS transition has finished playing, which is genuine
-  // synchronization with an external timer.
   const EXIT_MS = reducedMotion ? 0 : 200;
   const [mounted, setMounted] = useState(false);
   const [shown, setShown] = useState(false);
@@ -53,8 +39,6 @@ export function GlobalSearch() {
 
     const id = window.setTimeout(() => {
       setMounted(false);
-      // Reset content only once fully hidden, so the fade-out plays over
-      // the last thing the user saw instead of an emptied panel.
       setQuery("");
       setActiveIndex(-1);
     }, EXIT_MS);
@@ -68,9 +52,6 @@ export function GlobalSearch() {
     }
   }, [mounted, open]);
 
-  // Locked for the overlay's entire visible lifetime, including the
-  // fade-out - not just while `open` is strictly true - so the page can't
-  // be scrolled interactively behind a still-fading panel.
   useBodyScrollLock(mounted);
 
   const setQueryAndReset = useCallback((value: string) => {
@@ -80,8 +61,6 @@ export function GlobalSearch() {
 
   const close = useCallback(() => {
     setOpen(false);
-    // Start the fade-out immediately (synchronous, event-driven) - the
-    // effect above only handles the delayed *unmount* once it finishes.
     setShown(false);
   }, []);
 
@@ -93,20 +72,14 @@ export function GlobalSearch() {
   // Focus the input as soon as the overlay mounts.
   useEffect(() => {
     if (open) {
-      const id = window.setTimeout(() => inputRef.current?.focus(), reducedMotion ? 0 : 60);
+      const id = window.setTimeout(
+        () => inputRef.current?.focus(),
+        reducedMotion ? 0 : 60,
+      );
       return () => window.clearTimeout(id);
     }
   }, [open, reducedMotion]);
 
-  // Keydown handling reads from a ref rather than closing over state
-  // directly, so the effect below can attach its document-level listener
-  // exactly once (on mount) instead of tearing it down and re-adding it on
-  // every render. That matters here specifically: `results` is a fresh
-  // array on every render, so if it were a dependency of this effect, the
-  // listener would churn constantly, opening a window where it can miss
-  // events that a sibling component's own listener (e.g. the mobile nav's
-  // Escape handler) fires in the same tick - which is exactly what caused
-  // scroll to stay locked after closing the overlay in some situations.
   const latest = useRef({ open, results, activeIndex, query });
   useLayoutEffect(() => {
     latest.current = { open, results, activeIndex, query };
@@ -130,7 +103,9 @@ export function GlobalSearch() {
         close();
       } else if (event.key === "ArrowDown") {
         event.preventDefault();
-        setActiveIndex((previous) => Math.min(previous + 1, results.length - 1));
+        setActiveIndex((previous) =>
+          Math.min(previous + 1, results.length - 1),
+        );
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
         setActiveIndex((previous) => Math.max(previous - 1, -1));
@@ -155,16 +130,10 @@ export function GlobalSearch() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-    // Deliberately excludes `open`/`results`/`activeIndex`/`query` - those
-    // are read from the `latest` ref above so this effect (and the native
-    // listener it attaches) only ever runs once, on mount. `close`,
-    // `openOverlay`, and `addSearch` are stable (useCallback/useCallback
-    // internally with empty deps); `navigate` is stable per React Router.
   }, [close, openOverlay, navigate, addSearch]);
 
   return (
     <>
-      {/* Desktop trigger: visible md and up */}
       <button
         type="button"
         onClick={openOverlay}
@@ -177,14 +146,16 @@ export function GlobalSearch() {
         </kbd>
       </button>
 
-      {/* Mobile trigger: visible below md */}
       <button
         type="button"
         onClick={openOverlay}
         aria-label="Open search"
         className="flex h-10 w-10 items-center justify-center rounded-full text-teal-800 hover:bg-teal-700/8 transition-colors md:hidden"
       >
-        <i className="fa-solid fa-magnifying-glass text-lg" aria-hidden="true" />
+        <i
+          className="fa-solid fa-magnifying-glass text-lg"
+          aria-hidden="true"
+        />
       </button>
 
       {mounted &&
@@ -207,7 +178,9 @@ export function GlobalSearch() {
               className={cx(
                 "w-full max-w-xl surface-card p-4 sm:p-5 max-h-[75vh] flex flex-col",
                 "transition-[opacity,transform] duration-200 ease-out",
-                shown ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-[0.97] -translate-y-1",
+                shown
+                  ? "opacity-100 scale-100 translate-y-0"
+                  : "opacity-0 scale-[0.97] -translate-y-1",
               )}
             >
               <div className="flex items-center gap-2">
@@ -226,7 +199,10 @@ export function GlobalSearch() {
                   aria-label="Close search"
                   className="shrink-0 rounded-full p-2.5 text-sm font-medium text-ink-500 hover:bg-ink-900/5 sm:px-3 sm:py-2"
                 >
-                  <i className="fa-solid fa-xmark text-base sm:hidden" aria-hidden="true" />
+                  <i
+                    className="fa-solid fa-xmark text-base sm:hidden"
+                    aria-hidden="true"
+                  />
                   <span className="hidden sm:inline">Esc</span>
                 </button>
               </div>
@@ -236,7 +212,9 @@ export function GlobalSearch() {
                   recent.length > 0 ? (
                     <div>
                       <div className="flex items-center justify-between px-1 pb-2">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-ink-300">Recent searches</p>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-ink-300">
+                          Recent searches
+                        </p>
                         <button
                           type="button"
                           onClick={clearSearches}
@@ -261,7 +239,8 @@ export function GlobalSearch() {
                     </div>
                   ) : (
                     <p className="px-1 py-6 text-center text-sm text-ink-300">
-                      Start typing to search across every course, resource, and tutorial.
+                      Start typing to search across every course, resource, and
+                      tutorial.
                     </p>
                   )
                 ) : results.length > 0 ? (
@@ -274,7 +253,10 @@ export function GlobalSearch() {
                     }}
                   />
                 ) : (
-                  <SearchEmptyState query={query} onReset={() => setQueryAndReset("")} />
+                  <SearchEmptyState
+                    query={query}
+                    onReset={() => setQueryAndReset("")}
+                  />
                 )}
               </div>
 

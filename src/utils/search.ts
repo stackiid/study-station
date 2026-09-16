@@ -4,12 +4,6 @@ import { tutorials } from "../data/tutorials";
 import { getCategoryById } from "../data/categories";
 import type { SearchableItem, SearchResult } from "../types";
 
-/**
- * The single searchable index for the entire site. Every page uses this
- * same array - there is no per-page search logic. Adding a course,
- * resource, or tutorial to its data file automatically makes it
- * searchable everywhere with zero extra work.
- */
 export function buildSearchIndex(): SearchableItem[] {
   return [...courses, ...resources, ...tutorials];
 }
@@ -28,7 +22,11 @@ export function normalizeSearchText(value: string): string {
 function fieldsFor(item: SearchableItem) {
   const category = getCategoryById(item.category)?.name ?? "";
   const provider =
-    item.type === "course" ? item.provider : item.type === "tutorial" ? item.channel : "";
+    item.type === "course"
+      ? item.provider
+      : item.type === "tutorial"
+        ? item.channel
+        : "";
   const description = item.description;
   const title = item.title;
   const tags = item.tags.join(" ");
@@ -36,19 +34,12 @@ function fieldsFor(item: SearchableItem) {
   return { title, tags, category, provider, description, kind };
 }
 
-/**
- * Lightweight relevance scoring. Cheaper than pulling in a search
- * dependency, and fast enough to run on every keystroke against the
- * current dataset size (a few hundred items).
- *
- * Priority order: exact title > title contains > tags > category >
- * provider/channel > description.
- */
 export function scoreSearchResult(
   item: SearchableItem,
   normalizedQuery: string,
 ): SearchResult | null {
-  const { title, tags, category, provider, description, kind } = fieldsFor(item);
+  const { title, tags, category, provider, description, kind } =
+    fieldsFor(item);
   const normTitle = normalizeSearchText(title);
   const normTags = normalizeSearchText(tags);
   const normCategory = normalizeSearchText(category);
@@ -70,7 +61,10 @@ export function scoreSearchResult(
   } else if (normTags.includes(normalizedQuery)) {
     score = 50;
     matchedOn = "tags";
-  } else if (normCategory.includes(normalizedQuery) || normKind.includes(normalizedQuery)) {
+  } else if (
+    normCategory.includes(normalizedQuery) ||
+    normKind.includes(normalizedQuery)
+  ) {
     score = 35;
     matchedOn = "category";
   } else if (normProvider.includes(normalizedQuery)) {
@@ -91,16 +85,23 @@ export interface SearchOptions {
   type?: SearchableItem["type"];
 }
 
-export function searchContent(query: string, options: SearchOptions = {}): SearchResult[] {
+export function searchContent(
+  query: string,
+  options: SearchOptions = {},
+): SearchResult[] {
   const normalizedQuery = normalizeSearchText(query);
   if (!normalizedQuery) return [];
 
-  const pool = options.type ? searchIndex.filter((item) => item.type === options.type) : searchIndex;
+  const pool = options.type
+    ? searchIndex.filter((item) => item.type === options.type)
+    : searchIndex;
 
   const results = pool
     .map((item) => scoreSearchResult(item, normalizedQuery))
     .filter((result): result is SearchResult => result !== null)
     .sort((a, b) => b.score - a.score);
 
-  return typeof options.limit === "number" ? results.slice(0, options.limit) : results;
+  return typeof options.limit === "number"
+    ? results.slice(0, options.limit)
+    : results;
 }

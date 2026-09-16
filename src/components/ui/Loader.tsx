@@ -4,12 +4,6 @@ import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const MIN_DISPLAY_MS = 1400;
 
-/**
- * Shows immediately on first paint and holds for a controlled minimum
- * duration (not tied to any network request) before fading out. Kept
- * intentionally minimal - a single spinner, nothing else - so it reads as
- * a quick loading beat rather than a splash screen.
- */
 export function Loader({ onFinished }: { onFinished?: () => void }) {
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);

@@ -1,12 +1,6 @@
 @import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
-/*
-  Study Station design tokens.
-  Palette: soft warm neutrals + deep teal + warm coral accent.
-  Purple/violet/indigo/magenta are intentionally never used anywhere
-  in this file or in component styles.
-*/
 @theme {
   --font-display: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
@@ -39,8 +33,10 @@
   --color-ink-500: #5c6d66;
   --color-ink-300: #93a29c;
 
-  --shadow-soft: 0 1px 2px rgba(20, 37, 36, 0.04), 0 8px 24px -8px rgba(20, 37, 36, 0.12);
-  --shadow-lift: 0 4px 10px rgba(20, 37, 36, 0.06), 0 20px 40px -12px rgba(20, 37, 36, 0.18);
+  --shadow-soft:
+    0 1px 2px rgba(20, 37, 36, 0.04), 0 8px 24px -8px rgba(20, 37, 36, 0.12);
+  --shadow-lift:
+    0 4px 10px rgba(20, 37, 36, 0.06), 0 20px 40px -12px rgba(20, 37, 36, 0.18);
 
   --radius-card: 1.25rem;
   --radius-control: 0.75rem;
@@ -69,15 +65,22 @@
 
   body {
     background-color: var(--color-paper);
-    /* Sitewide ambient tint, pinned to the viewport (not the document), so
-       it's the same continuous background everywhere - behind the
-       floating header, behind the hero, and all the way down every page -
-       instead of a per-section accent that creates a visible seam where
-       one section's tinted background meets the next section's flat one. */
     background-image:
-      radial-gradient(circle at 14% 10%, rgba(34, 124, 108, 0.12), transparent 42%),
-      radial-gradient(circle at 86% 8%, rgba(255, 122, 69, 0.1), transparent 38%),
-      radial-gradient(circle at 50% 100%, rgba(20, 95, 82, 0.07), transparent 52%);
+      radial-gradient(
+        circle at 14% 10%,
+        rgba(34, 124, 108, 0.12),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 86% 8%,
+        rgba(255, 122, 69, 0.1),
+        transparent 38%
+      ),
+      radial-gradient(
+        circle at 50% 100%,
+        rgba(20, 95, 82, 0.07),
+        transparent 52%
+      );
     background-attachment: fixed;
     color: var(--color-ink-900);
     font-family: var(--font-body);
@@ -85,7 +88,12 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
@@ -129,13 +137,6 @@
     scrollbar-width: none;
   }
 
-  /* Custom <select> - hides the native control entirely and draws our own
-     chevron, so every dropdown matches the app's rounded, teal-bordered
-     inputs instead of falling back to OS-native styling. The dropdown
-     *panel* itself (the open list of options) is still rendered by the
-     browser/OS and can't be restyled with CSS - true cross-browser control
-     over that panel requires a JS-built listbox, which is more machinery
-     than this single sort control warrants. */
   .select-field {
     appearance: none;
     -webkit-appearance: none;
@@ -148,16 +149,18 @@
   }
 }
 
-/* Decorative background texture used behind hero / CTA sections. */
-/* A bolder, section-scoped version of the same mesh treatment - used only
-   for small decorative accents on top of an already-solid background
-   (e.g. the CTA band on Home), not for page backgrounds. Page-level
-   background tinting lives on `body` above instead, specifically so it
-   never creates a seam between one section and the next. */
 .brand-mesh {
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(34, 124, 108, 0.14), transparent 45%),
-    radial-gradient(circle at 88% 12%, rgba(255, 122, 69, 0.12), transparent 40%),
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(34, 124, 108, 0.14),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 122, 69, 0.12),
+      transparent 40%
+    ),
     radial-gradient(circle at 50% 100%, rgba(20, 95, 82, 0.08), transparent 55%);
 }
 
@@ -166,12 +169,6 @@
   height: 100vh;
 }
 
-/* Mobile-only "Scroll down" hint at the foot of the Home hero. A gentle
-   vertical drift combined with an opacity pulse - deliberately slow and
-   low-contrast so it reads as a quiet affordance rather than something
-   demanding attention. The global prefers-reduced-motion rule in
-   @layer base already collapses this animation to a near-zero duration,
-   so no separate guard is needed here. */
 @keyframes scrollHint {
   0%,
   100% {
@@ -212,8 +209,3 @@ html {
 ::-webkit-scrollbar-corner {
   background: var(--color-paper-dim);
 }
-
-/* Any inner scroll container (search overlay results, mobile nav) that
-   opts out of the scrollbar entirely uses .no-scrollbar, defined once
-   above in the components layer. */
-

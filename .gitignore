@@ -22,7 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Hosting configurations
-vercel.json
-netlify.toml

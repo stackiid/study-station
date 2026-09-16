@@ -22,7 +22,10 @@ export function Header() {
         <div className="flex h-16 items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
           <Logo />
 
-          <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
+          <nav
+            className="hidden md:flex items-center gap-1"
+            aria-label="Primary"
+          >
             {primaryNav.map((link) => (
               <NavLink
                 key={link.path}
@@ -31,7 +34,9 @@ export function Header() {
                 className={({ isActive }) =>
                   cx(
                     "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                    isActive ? "bg-teal-700/8 text-teal-800" : "text-ink-700 hover:text-teal-800 hover:bg-teal-700/6",
+                    isActive
+                      ? "bg-teal-700/8 text-teal-800"
+                      : "text-ink-700 hover:text-teal-800 hover:bg-teal-700/6",
                   )
                 }
               >

@@ -36,7 +36,10 @@ export default function Courses() {
   const [sort, setSort] = useState<SortOption>("featured");
   const reducedMotion = useReducedMotion();
 
-  const availableIds = useMemo(() => new Set(courses.map((c) => c.category)), []);
+  const availableIds = useMemo(
+    () => new Set(courses.map((c) => c.category)),
+    [],
+  );
 
   const filtered = useMemo(() => {
     const normalizedQuery = normalizeSearchText(query);
@@ -93,7 +96,9 @@ export default function Courses() {
                 type="button"
                 onClick={() => setLevel(option.id)}
                 className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                  level === option.id ? "bg-coral-500 text-white" : "bg-ink-900/[0.04] text-ink-700 hover:bg-ink-900/[0.08]"
+                  level === option.id
+                    ? "bg-coral-500 text-white"
+                    : "bg-ink-900/[0.04] text-ink-700 hover:bg-ink-900/[0.08]"
                 }`}
               >
                 {option.label}
@@ -103,7 +108,13 @@ export default function Courses() {
 
           <div className="flex items-center gap-2 text-sm text-ink-500">
             <span className="shrink-0">Sort by</span>
-            <Select value={sort} onChange={setSort} options={sortOptions} aria-label="Sort courses by" className="w-40" />
+            <Select
+              value={sort}
+              onChange={setSort}
+              options={sortOptions}
+              aria-label="Sort courses by"
+              className="w-40"
+            />
           </div>
         </div>
 

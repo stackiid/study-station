@@ -8,19 +8,14 @@ interface UseCountUpOptions {
   delay?: number;
 }
 
-/**
- * Animates a number from 0 up to `target` using requestAnimationFrame with
- * an ease-out curve (fast start, gentle settle). Jumps straight to the
- * final value for prefers-reduced-motion, consistent with every other
- * animation in the app.
- */
-export function useCountUp(target: number, { duration = 1200, delay = 0 }: UseCountUpOptions = {}): number {
+export function useCountUp(
+  target: number,
+  { duration = 1200, delay = 0 }: UseCountUpOptions = {},
+): number {
   const reducedMotion = useReducedMotion();
   const [animatedValue, setAnimatedValue] = useState(0);
 
   useEffect(() => {
-    // Nothing to animate - the render below returns `target` directly for
-    // reduced-motion, so there's no state to synchronize here at all.
     if (reducedMotion) return;
 
     let rafId: number;

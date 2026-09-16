@@ -15,19 +15,6 @@ interface SelectProps<T extends string> {
   className?: string;
 }
 
-/**
- * A fully custom-styled dropdown: the closed trigger, the open panel, and
- * every option are all our own markup, so nothing here falls back to
- * OS-native styling the way a plain `<select>` does (browsers render a
- * native `<select>`'s open option list themselves and it can't be
- * restyled with CSS - see docs/03-Design-System.md).
- *
- * The trigger button stays focused the entire time, including while the
- * panel is open - arrow keys move a visual "active" highlight tracked in
- * state (surfaced to assistive tech via `aria-activedescendant`) rather
- * than moving real DOM focus into the list, which is what lets a single
- * `onKeyDown` handler on the button drive the whole interaction.
- */
 export function Select<T extends string>({
   value,
   onChange,
@@ -131,12 +118,17 @@ export function Select<T extends string>({
                 onMouseEnter={() => setActiveIndex(index)}
                 className={cx(
                   "flex w-full items-center justify-between gap-2 px-3.5 py-2 text-left text-sm transition-colors",
-                  index === activeIndex ? "bg-teal-50 text-teal-800" : "text-ink-700 hover:bg-teal-50/60",
+                  index === activeIndex
+                    ? "bg-teal-50 text-teal-800"
+                    : "text-ink-700 hover:bg-teal-50/60",
                 )}
               >
                 {option.label}
                 {option.value === value && (
-                  <i className="fa-solid fa-check text-xs text-teal-600" aria-hidden="true" />
+                  <i
+                    className="fa-solid fa-check text-xs text-teal-600"
+                    aria-hidden="true"
+                  />
                 )}
               </button>
             </li>

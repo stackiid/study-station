@@ -14,16 +14,27 @@ interface FormErrors {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validate(values: { name: string; email: string; message: string }): FormErrors {
+function validate(values: {
+  name: string;
+  email: string;
+  message: string;
+}): FormErrors {
   const errors: FormErrors = {};
   if (values.name.trim().length < 2) errors.name = "Enter your name.";
-  if (!EMAIL_PATTERN.test(values.email.trim())) errors.email = "Enter a valid email address.";
-  if (values.message.trim().length < 10) errors.message = "Message should be at least 10 characters.";
+  if (!EMAIL_PATTERN.test(values.email.trim()))
+    errors.email = "Enter a valid email address.";
+  if (values.message.trim().length < 10)
+    errors.message = "Message should be at least 10 characters.";
   return errors;
 }
 
 export default function Contact() {
-  const [values, setValues] = useState({ name: "", email: "", subject: "", message: "" });
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
 
@@ -55,14 +66,23 @@ export default function Contact() {
   if (status === "success") {
     return (
       <>
-        <PageHero eyebrow="Contact" title="Message sent" description="Thanks for reaching out - we read every message." />
+        <PageHero
+          eyebrow="Contact"
+          title="Message sent"
+          description="Thanks for reaching out - we read every message."
+        />
         <section className="container-page py-16 text-center">
           <div className="mx-auto max-w-md surface-card p-8">
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-teal-50 text-2xl text-teal-600">
               <i className="fa-solid fa-check" aria-hidden="true" />
             </span>
-            <h2 className="mt-4 font-display text-xl font-bold text-teal-900">We got your message</h2>
-            <p className="mt-2 text-sm text-ink-500">We typically reply within a couple of days. Feel free to send another message any time.</p>
+            <h2 className="mt-4 font-display text-xl font-bold text-teal-900">
+              We got your message
+            </h2>
+            <p className="mt-2 text-sm text-ink-500">
+              We typically reply within a couple of days. Feel free to send
+              another message any time.
+            </p>
             <Button className="mt-6" onClick={() => setStatus("idle")}>
               Send another message
             </Button>
@@ -87,8 +107,13 @@ export default function Contact() {
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
                 <i className="fa-solid fa-envelope" aria-hidden="true" />
               </span>
-              <h3 className="mt-4 font-display font-bold text-teal-900">Email</h3>
-              <a href={`mailto:${site.contactEmail}`} className="mt-1 block text-sm text-ink-500 hover:text-teal-700">
+              <h3 className="mt-4 font-display font-bold text-teal-900">
+                Email
+              </h3>
+              <a
+                href={`mailto:${site.contactEmail}`}
+                className="mt-1 block text-sm text-ink-500 hover:text-teal-700"
+              >
                 {site.contactEmail}
               </a>
             </div>
@@ -96,7 +121,9 @@ export default function Contact() {
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-coral-50 text-coral-600">
                 <i className="fa-brands fa-whatsapp" aria-hidden="true" />
               </span>
-              <h3 className="mt-4 font-display font-bold text-teal-900">Community channel</h3>
+              <h3 className="mt-4 font-display font-bold text-teal-900">
+                Community channel
+              </h3>
               <a
                 href={site.communityChannelUrl}
                 target="_blank"
@@ -108,10 +135,17 @@ export default function Contact() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} noValidate className="surface-card p-6 sm:p-8">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="surface-card p-6 sm:p-8"
+          >
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="name" className="text-sm font-semibold text-ink-700">
+                <label
+                  htmlFor="name"
+                  className="text-sm font-semibold text-ink-700"
+                >
                   Name
                 </label>
                 <input
@@ -119,15 +153,22 @@ export default function Contact() {
                   name="name"
                   type="text"
                   value={values.name}
-                  onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
+                  onChange={(event) =>
+                    setValues((prev) => ({ ...prev, name: event.target.value }))
+                  }
                   aria-invalid={Boolean(errors.name)}
                   className="mt-1.5 w-full rounded-xl border border-ink-900/10 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30"
                 />
-                {errors.name && <p className="mt-1 text-xs text-coral-600">{errors.name}</p>}
+                {errors.name && (
+                  <p className="mt-1 text-xs text-coral-600">{errors.name}</p>
+                )}
               </div>
 
               <div>
-                <label htmlFor="email" className="text-sm font-semibold text-ink-700">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-semibold text-ink-700"
+                >
                   Email
                 </label>
                 <input
@@ -135,30 +176,49 @@ export default function Contact() {
                   name="email"
                   type="email"
                   value={values.email}
-                  onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+                  onChange={(event) =>
+                    setValues((prev) => ({
+                      ...prev,
+                      email: event.target.value,
+                    }))
+                  }
                   aria-invalid={Boolean(errors.email)}
                   className="mt-1.5 w-full rounded-xl border border-ink-900/10 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30"
                 />
-                {errors.email && <p className="mt-1 text-xs text-coral-600">{errors.email}</p>}
+                {errors.email && (
+                  <p className="mt-1 text-xs text-coral-600">{errors.email}</p>
+                )}
               </div>
             </div>
 
             <div className="mt-5">
-              <label htmlFor="subject" className="text-sm font-semibold text-ink-700">
-                Subject <span className="font-normal text-ink-300">(optional)</span>
+              <label
+                htmlFor="subject"
+                className="text-sm font-semibold text-ink-700"
+              >
+                Subject{" "}
+                <span className="font-normal text-ink-300">(optional)</span>
               </label>
               <input
                 id="subject"
                 name="subject"
                 type="text"
                 value={values.subject}
-                onChange={(event) => setValues((prev) => ({ ...prev, subject: event.target.value }))}
+                onChange={(event) =>
+                  setValues((prev) => ({
+                    ...prev,
+                    subject: event.target.value,
+                  }))
+                }
                 className="mt-1.5 w-full rounded-xl border border-ink-900/10 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30"
               />
             </div>
 
             <div className="mt-5">
-              <label htmlFor="message" className="text-sm font-semibold text-ink-700">
+              <label
+                htmlFor="message"
+                className="text-sm font-semibold text-ink-700"
+              >
                 Message
               </label>
               <textarea
@@ -166,11 +226,18 @@ export default function Contact() {
                 name="message"
                 rows={5}
                 value={values.message}
-                onChange={(event) => setValues((prev) => ({ ...prev, message: event.target.value }))}
+                onChange={(event) =>
+                  setValues((prev) => ({
+                    ...prev,
+                    message: event.target.value,
+                  }))
+                }
                 aria-invalid={Boolean(errors.message)}
                 className="mt-1.5 w-full resize-none rounded-xl border border-ink-900/10 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30"
               />
-              {errors.message && <p className="mt-1 text-xs text-coral-600">{errors.message}</p>}
+              {errors.message && (
+                <p className="mt-1 text-xs text-coral-600">{errors.message}</p>
+              )}
             </div>
 
             {status === "error" && (
@@ -181,7 +248,12 @@ export default function Contact() {
               />
             )}
 
-            <Button type="submit" size="lg" className="mt-6 w-full sm:w-auto" disabled={status === "submitting"}>
+            <Button
+              type="submit"
+              size="lg"
+              className="mt-6 w-full sm:w-auto"
+              disabled={status === "submitting"}
+            >
               {status === "submitting" ? "Sending..." : "Send message"}
             </Button>
           </form>

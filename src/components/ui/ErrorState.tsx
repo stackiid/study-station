@@ -17,10 +17,15 @@ export function ErrorState({
         className,
       )}
     >
-      <i className="fa-solid fa-circle-exclamation mt-0.5 text-coral-600" aria-hidden="true" />
+      <i
+        className="fa-solid fa-circle-exclamation mt-0.5 text-coral-600"
+        aria-hidden="true"
+      />
       <div>
         <p className="font-semibold">{title}</p>
-        {description && <p className="mt-0.5 text-coral-700/90">{description}</p>}
+        {description && (
+          <p className="mt-0.5 text-coral-700/90">{description}</p>
+        )}
       </div>
     </div>
   );

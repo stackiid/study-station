@@ -26,14 +26,23 @@ export function TutorialCard({ tutorial }: { tutorial: Tutorial }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-base font-bold leading-snug text-teal-900">{tutorial.title}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">{tutorial.description}</p>
+        <h3 className="font-display text-base font-bold leading-snug text-teal-900">
+          {tutorial.title}
+        </h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-500">
+          {tutorial.description}
+        </p>
         <div className="mt-4 flex items-center justify-between border-t border-ink-900/6 pt-4 text-xs font-semibold text-ink-500">
           <span className="flex items-center gap-1.5">
-            <i className="fa-brands fa-youtube text-coral-500" aria-hidden="true" />
+            <i
+              className="fa-brands fa-youtube text-coral-500"
+              aria-hidden="true"
+            />
             {tutorial.channel}
           </span>
-          <span className="text-teal-700 group-hover:text-teal-900">Watch now</span>
+          <span className="text-teal-700 group-hover:text-teal-900">
+            Watch now
+          </span>
         </div>
       </div>
     </a>
