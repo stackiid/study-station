@@ -20,6 +20,8 @@ import { site } from "../data/site";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { useCountUp } from "../hooks/useCountUp";
+import { useScrolledPast } from "../hooks/useScrolledPast";
+import { cx } from "../utils/helpers";
 
 const stats = [
   { label: "Free courses", target: courses.length, suffix: "+" },
@@ -44,6 +46,10 @@ function StatCounter({ target, prefix = "", suffix = "" }: { target: number; pre
 function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+  // Hide the mobile "Scroll down" hint as soon as the visitor has moved off
+  // the top of the page - once the next section is coming into view it's
+  // just repeating advice they've already taken.
+  const scrolledPast = useScrolledPast(50);
 
   useEffect(() => {
     if (reducedMotion || !heroRef.current) return;
@@ -132,13 +138,26 @@ function Hero() {
           adding this to the normal flow would push that content upward and
           risk shunting the stat counters past the fold. The section reserves
           matching bottom padding below `sm` so this can never sit on top of
-          the counters. Decorative, so it's hidden from assistive tech. */}
+          the counters. Decorative, so it's hidden from assistive tech.
+
+          Two nested elements rather than one, deliberately: the inner
+          element runs the looping bounce/pulse keyframes, which animate
+          `opacity` - and a running CSS animation overrides a plain
+          `opacity` declaration on the same element, so toggling the fade
+          there would have no effect. Putting the scroll-driven fade on the
+          wrapper sidesteps that entirely, since nested opacities multiply
+          (wrapper at 0 hides the child whatever its keyframe is doing). */}
       <div
         aria-hidden="true"
-        className="scroll-hint pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-1 text-ink-300 sm:hidden"
+        className={cx(
+          "pointer-events-none absolute inset-x-0 bottom-4 flex justify-center transition-opacity duration-300 ease-out sm:hidden",
+          scrolledPast ? "opacity-0" : "opacity-100",
+        )}
       >
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">Scroll down</span>
-        <i className="fa-solid fa-chevron-down text-[0.7rem]" />
+        <div className="scroll-hint flex flex-col items-center gap-1 text-ink-300">
+          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em]">Scroll down</span>
+          <i className="fa-solid fa-chevron-down text-[0.7rem]" />
+        </div>
       </div>
     </section>
   );
