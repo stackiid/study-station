@@ -11,7 +11,7 @@ const sections = [
   {
     title: "What Study Station is",
     body: [
-      "Study Station is a free, independent educational platform. We organize and link to courses, tutorials, and resources hosted on third-party platforms (YouTube, Google Drive, documentation sites, and others). We don't host, own, sell, or claim authorship of that third-party content.",
+      "Study Station is a free, independent educational platform. We organize and link to courses, tutorials, resources, and a curated directory of YouTube educators, all hosted on third-party platforms (YouTube, Google Drive, documentation sites, and others). We don't host, own, sell, or claim authorship of that third-party content.",
     ],
   },
   {
@@ -19,6 +19,7 @@ const sections = [
     body: [
       "We do our best to keep links accurate and working, but we don't control the availability, accuracy, or continued existence of third-party content. Links may break or content may be removed or changed by its original creator without notice. If you find a broken or outdated link, please let us know through the contact page.",
       "Ratings shown on course cards reflect general community sentiment about the linked content and are provided for guidance only.",
+      "The YouTubers page is a curated directory of channels we think are worth watching. Listing a channel is not an endorsement, partnership, or sponsorship, and we don't control, moderate, or guarantee the content those channels publish after we've linked to them.",
     ],
   },
   {
@@ -59,7 +60,7 @@ export default function Terms() {
       <PageHero
         eyebrow="Legal"
         title="Terms & Conditions"
-        description="Last updated: January 2026"
+        description="Last updated: September 2026"
       />
       <section className="container-page py-12 sm:py-14">
         <div className="mx-auto max-w-3xl space-y-10">

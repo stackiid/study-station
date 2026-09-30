@@ -133,7 +133,7 @@ cp favicon.ico apple-touch-icon.png icon-32.png icon-192.png icon-512.png public
 those names if you regenerate, or update the `<link>` tags in `index.html`
 to match new ones.
 
-## Optimizing new course/tutorial images
+## Optimizing new course/tutorial/YouTuber images
 
 Course and tutorial thumbnails are re-encoded before committing, to keep
 the site fast. The command used for every image currently in
@@ -146,6 +146,15 @@ convert original.jpg -resize '900x900>' -background '#FAF7F0' -flatten -strip -q
 This caps the longest edge at 900px, flattens any transparency onto the
 brand's paper background color, strips metadata, and re-encodes at 80%
 JPEG quality - every existing thumbnail is under 80KB as a result.
+
+YouTuber avatars in `public/images/youtubers/` follow the same rule once
+you replace them with real channel art - square, ideally 400-800px, same
+`convert` command. The five placeholders shipped with the YouTubers
+feature are plain SVG initials, not real channel photos (this repo's
+build environment had no network access to fetch real avatars) - swap
+each `public/images/youtubers/<channel>.svg` for a real image (updating
+the `image` path in `src/data/youtubers.ts` to match) whenever it's
+convenient.
 
 ## Why Google Fonts is a `<link>`, not a bundled dependency
 

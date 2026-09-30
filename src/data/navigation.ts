@@ -5,10 +5,12 @@ export const primaryNav: NavLink[] = [
   { label: "Courses", path: "/courses" },
   { label: "Resources", path: "/resources" },
   { label: "Tutorials", path: "/tutorials" },
+  { label: "YouTubers", path: "/youtubers" },
   { label: "Contact", path: "/contact" },
 ];
 
 export const footerLegalNav: NavLink[] = [
   { label: "Privacy Policy", path: "/privacy" },
   { label: "Terms & Conditions", path: "/terms" },
+  { label: "Cookie Policy", path: "/cookies" },
 ];

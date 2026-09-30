@@ -1,11 +1,12 @@
 import { courses } from "../data/courses";
 import { resources } from "../data/resources";
 import { tutorials } from "../data/tutorials";
+import { youtubers } from "../data/youtubers";
 import { getCategoryById } from "../data/categories";
 import type { SearchableItem, SearchResult } from "../types";
 
 export function buildSearchIndex(): SearchableItem[] {
-  return [...courses, ...resources, ...tutorials];
+  return [...courses, ...resources, ...tutorials, ...youtubers];
 }
 
 const searchIndex = buildSearchIndex();
@@ -20,17 +21,27 @@ export function normalizeSearchText(value: string): string {
 }
 
 function fieldsFor(item: SearchableItem) {
-  const category = getCategoryById(item.category)?.name ?? "";
+  const category =
+    item.type === "youtuber"
+      ? item.categories.join(" ")
+      : (getCategoryById(item.category)?.name ?? "");
   const provider =
     item.type === "course"
       ? item.provider
       : item.type === "tutorial"
         ? item.channel
-        : "";
+        : item.type === "youtuber"
+          ? item.channelName
+          : "";
   const description = item.description;
-  const title = item.title;
+  const title = item.type === "youtuber" ? item.channelName : item.title;
   const tags = item.tags.join(" ");
-  const kind = item.type === "resource" ? item.kind : "";
+  const kind =
+    item.type === "resource"
+      ? item.kind
+      : item.type === "youtuber"
+        ? item.handle
+        : "";
   return { title, tags, category, provider, description, kind };
 }
 
@@ -56,7 +67,6 @@ export function scoreSearchResult(
   } else if (normTitle.includes(normalizedQuery)) {
     score = 70;
     matchedOn = "title";
-    // Reward matches near the start of the title slightly.
     if (normTitle.startsWith(normalizedQuery)) score += 10;
   } else if (normTags.includes(normalizedQuery)) {
     score = 50;

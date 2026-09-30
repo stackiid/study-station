@@ -23,7 +23,7 @@ export function Header() {
           <Logo />
 
           <nav
-            className="hidden md:flex items-center gap-1"
+            className="hidden lg:flex items-center gap-1"
             aria-label="Primary"
           >
             {primaryNav.map((link) => (
@@ -51,7 +51,7 @@ export function Header() {
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-teal-800 hover:bg-teal-700/8 transition-colors md:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-teal-800 hover:bg-teal-700/8 transition-colors lg:hidden"
             >
               <i className="fa-solid fa-bars text-lg" aria-hidden="true" />
             </button>

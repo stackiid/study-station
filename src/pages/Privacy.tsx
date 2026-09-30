@@ -5,7 +5,7 @@ const sections = [
   {
     title: "What this policy covers",
     body: [
-      `This policy explains what information ${site.name} collects when you use this website, and how it's used. Study Station is an independent educational platform that curates links to third-party courses, tutorials, and resources - we don't require an account to browse or search the site.`,
+      `This policy explains what information ${site.name} collects when you use this website, and how it's used. Study Station is an independent educational platform that curates links to third-party courses, tutorials, resources, and YouTube channels - we don't require an account to browse or search the site.`,
     ],
   },
   {
@@ -25,13 +25,13 @@ const sections = [
   {
     title: "Third-party links",
     body: [
-      "Nearly everything on Study Station links out to third-party platforms - YouTube, Google Drive, documentation sites, and more. Once you leave studystation.dev, that site's own privacy policy applies. We encourage you to review the policies of any external site you visit through a link on this page.",
+      "Nearly everything on Study Station links out to third-party platforms - YouTube, Google Drive, documentation sites, and more. This includes the YouTubers page, which is a directory of links to YouTube channels we don't own, host, or control. Once you leave studystation.dev, that site's own privacy policy applies - including YouTube's, when you click through to a channel. We encourage you to review the policies of any external site you visit through a link on this page.",
     ],
   },
   {
     title: "Cookies",
     body: [
-      "This site does not set its own tracking cookies. Third-party sites you navigate to from our links may use their own cookies, governed by their own policies.",
+      "This site does not set its own tracking cookies. Third-party sites you navigate to from our links - including YouTube, when you visit a channel from the YouTubers page - may use their own cookies and tracking technologies, governed by their own policies rather than ours. See our Cookie Policy for more detail.",
     ],
   },
   {
@@ -60,7 +60,7 @@ export default function Privacy() {
       <PageHero
         eyebrow="Legal"
         title="Privacy Policy"
-        description="Last updated: January 2026"
+        description="Last updated: September 2026"
       />
       <section className="container-page py-12 sm:py-14">
         <div className="mx-auto max-w-3xl space-y-10">

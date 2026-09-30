@@ -36,7 +36,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         aria-hidden={!open}
         onClick={onClose}
         className={cx(
-          "fixed inset-0 z-[45] bg-teal-900/40 backdrop-blur-[2px] transition-opacity duration-300 md:hidden",
+          "fixed inset-0 z-[45] bg-teal-900/40 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden",
           open
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none",
@@ -48,7 +48,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
         aria-modal="true"
         aria-label="Site navigation"
         className={cx(
-          "fixed inset-y-0 left-0 z-50 flex h-full w-[84%] max-w-xs flex-col bg-white shadow-lift transition-transform duration-300 ease-out md:hidden",
+          "fixed inset-y-0 left-0 z-50 flex h-full w-[84%] max-w-xs flex-col bg-white shadow-lift transition-transform duration-300 ease-out lg:hidden",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >

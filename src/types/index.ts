@@ -7,7 +7,7 @@
  * contributor guide.
  */
 
-export type ContentType = "course" | "resource" | "tutorial";
+export type ContentType = "course" | "resource" | "tutorial" | "youtuber";
 
 export type SkillLevel =
   | "beginner"
@@ -78,7 +78,43 @@ export interface Tutorial {
   featured?: boolean;
 }
 
-export type SearchableItem = Course | Resource | Tutorial;
+export interface Youtuber {
+  id: string;
+  type: "youtuber";
+  channelName: string;
+  /** Public @handle, e.g. "@freecodecamp" */
+  handle: string;
+  description: string;
+  /**
+   * Free-form, human-readable category labels, e.g. ["Web Development", "Career"].
+   * Unlike Course/Resource/Tutorial, these are NOT ids into a shared
+   * categories.ts list - the YouTubers page derives its entire category
+   * filter UI directly from whatever labels appear across this dataset
+   * (see src/utils/youtuberCategories.ts). Add a brand-new label here and
+   * it becomes a real, filterable, searchable category automatically -
+   * no other file needs to change.
+   */
+  categories: string[];
+  /** Optional short line on what the channel is best known for. */
+  knownFor?: string;
+  /**
+   * Manually maintained snapshot values, e.g. "11.8M". These are NOT
+   * fetched live and WILL drift out of date - update them by hand
+   * whenever convenient. Leave undefined rather than guessing; the card
+   * simply omits the stat row when both are missing.
+   */
+  subscribers?: string;
+  videoCount?: string;
+  /** Path or remote URL for the channel avatar/profile image. */
+  image: string;
+  /** Full URL to the YouTube channel. */
+  channelUrl: string;
+  tags: string[];
+  /** Featured channels can be surfaced first, mirroring Course/Tutorial. */
+  featured?: boolean;
+}
+
+export type SearchableItem = Course | Resource | Tutorial | Youtuber;
 
 export interface SearchResult<T = SearchableItem> {
   item: T;

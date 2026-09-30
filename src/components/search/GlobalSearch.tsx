@@ -117,7 +117,8 @@ export function GlobalSearch() {
           if (item.type === "course" && item.comingSoon) {
             navigate(`/courses#${item.id}`);
           } else {
-            window.open(item.url, "_blank", "noopener,noreferrer");
+            const url = item.type === "youtuber" ? item.channelUrl : item.url;
+            window.open(url, "_blank", "noopener,noreferrer");
           }
           close();
         } else if (query.trim().length > 0) {

@@ -4,9 +4,9 @@
 
 Study Station is a free, independent educational platform. It doesn't host
 courses itself - it curates and organizes links to third-party courses,
-tutorials, and resources (Google Drive folders, YouTube videos,
-documentation sites, practice platforms) into one searchable, filterable
-site.
+tutorials, resources, and a directory of YouTube educators (Google Drive
+folders, YouTube videos, documentation sites, practice platforms) into
+one searchable, filterable site.
 
 This repository is a full rebuild of the original static HTML/CSS/JS site
 into a modern React + TypeScript single-page application, with the same
@@ -16,9 +16,10 @@ content, reorganized and made searchable.
 
 - **Visitors**: anyone looking for a free course, a piece of documentation,
   or a tutorial, without hunting through scattered bookmarks.
-- **Contributors**: anyone adding a new course, resource, or tutorial to the
-  data files (see `docs/04-Content-and-Search-System.md` for the exact
-  steps - it's a one-file edit with no other code changes required).
+- **Contributors**: anyone adding a new course, resource, tutorial, or
+  YouTuber channel to the data files (see
+  `docs/04-Content-and-Search-System.md` for the exact steps - it's a
+  one-file edit with no other code changes required).
 
 ## Tech stack, at a glance
 
@@ -46,9 +47,11 @@ TypeScript data files under `src/data/`.
 | `/courses`   | Full course catalog with search, category filter, level filter, sort                           |
 | `/resources` | Full resource catalog with search and category filter                                          |
 | `/tutorials` | Full tutorial catalog with search and category filter                                          |
+| `/youtubers` | Curated directory of YouTube educators with search and dynamic category filter                 |
 | `/contact`   | Contact form (Formspree) + direct contact channels                                             |
 | `/privacy`   | Privacy Policy                                                                                 |
 | `/terms`     | Terms & Conditions                                                                             |
+| `/cookies`   | Cookie Policy                                                                                  |
 | `/search`    | Full-page search results (linked from the search overlay's "See all results")                  |
 | `*`          | 404 Not Found                                                                                  |
 
